@@ -1,14 +1,9 @@
-﻿using System;
+﻿using Common.Helpers.DataTypes;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using DAL.Utilities.Data;
-using DAL.Utilities.Library.DataTypes;
 
 namespace TimeKeeper
 {
@@ -42,44 +37,44 @@ namespace TimeKeeper
 
 		private void btnSave_Click(object sender, EventArgs e)
 		{
-			string projectName = this.txtProjectName.Text.Trim();
-			string departmentName = this.cmboDepartment.Text.Trim();
-			DateTime startDate = this.dtpStartDate.Value;
-			DateTime endDate = this.dtpEndDate.Value;
+			var projectName = this.txtProjectName.Text.Trim();
+			var departmentName = this.cmboDepartment.Text.Trim();
+			var beginDate = this.dtpStartDate.Value;
+			var endDate = this.dtpEndDate.Value;
 
 			// Validate
-			List<string> errors = new List<string>();
-			if (Strings.IsEmpty(projectName))
+			var errors = new List<string>();
+			if (projectName.IsEmpty())
 			{
 				errors.Add("Project Name is required");
 			}
-			if (Strings.IsEmpty(departmentName))
+			if (departmentName.IsEmpty())
 			{
 				errors.Add("Department is required");
 			}
 
-			if (startDate > DateTime.Now.AddYears(1) || startDate < DateTime.Now.AddYears(-1) || startDate > endDate)
+			if (beginDate > DateTime.Now.AddYears(1) || beginDate < DateTime.Now.AddYears(-1) || beginDate > endDate)
 			{
 				errors.Add("Start Date is out of range");
 			}
-			if (endDate > DateTime.Now.AddYears(2) || endDate < startDate)
+			if (endDate > DateTime.Now.AddYears(2) || endDate < beginDate)
 			{
 				errors.Add("End Date is out of range");
 			}
 
 			if (errors.Count > 0)
 			{
-				MessageBox.Show("The project could not be saved due to the following issues:\n\n" + Strings.Join("\n", errors), "Missing Values");
+				MessageBox.Show("The project could not be saved due to the following issues:\n\n" + string.Join("\n", errors), "Missing Values");
 				return;
 			}
 
 			try
 			{
-				RemoteData.SaveProject(Constants.NullInt, projectName, departmentName, startDate, endDate);
+				TimeKeeperData.SaveProject(0, projectName, departmentName, beginDate, endDate);
 			}
 			catch (Exception ex)
 			{
-				MessageBox.Show("There was an error saving the new project. Report this please. Here are the details\n\n" + DAL.Utilities.Library.DataTypes.Strings.ExceptionToDetailText(ex), "TimeKeeper - New Project Error");
+				MessageBox.Show("There was an error saving the new project. Report this please. Here are the details\n\n" + ex.ToDetailText(), "TimeKeeper - New Project Error");
 				return;
 			}
 

@@ -12,196 +12,171 @@ namespace TimeKeeper
 	{
 		public static string ConnectionString = string.Empty;
 
-		public static void Save(int projectID, int minutes, string description, DateTime timeStamp) {
-			SQLiteConnection conn = null;
-			SQLiteCommand cmd = null;
-			try
+		public static void SaveLog(long projectID, string userName, long minutes, string description, DateTime timeStamp)
+		{
+			using (var conn = new SQLiteConnection(TimeKeeperData.ConnectionString))
 			{
-				conn = new SQLiteConnection(TimeKeeperData.ConnectionString);
 				conn.Open();
 
-				cmd = new SQLiteCommand("INSERT INTO Log(ProjectID, Minutes, Description, EntryDate) VALUES(@ProjectID, @MinutesAllocated, @Description, @EntryDatetime)", conn);
-				cmd.CommandType = CommandType.Text;
-
-				cmd.Parameters.AddWithValue("@ProjectID", projectID);
-				cmd.Parameters.AddWithValue("@MinutesAllocated", minutes);
-				cmd.Parameters.AddWithValue("@EntryDatetime", timeStamp.Ticks);
-				cmd.Parameters.AddWithValue("@Description", description);
-
-				cmd.ExecuteNonQuery();
-
-			}
-			finally
-			{
-				if (cmd != null)
+				using (var cmd = new SQLiteCommand("INSERT INTO Log(ProjectID, UserName, Minutes, Description, EntryDate) VALUES(@ProjectID, @UserName, @Minutes, @Description, @EntryDatetime)", conn))
 				{
-					cmd.Dispose();
-				}
+					cmd.CommandType = CommandType.Text;
 
-				if (conn != null)
-				{
-					conn.Close();
-					conn.Dispose();
+					cmd.Parameters.AddWithValue("@ProjectID", projectID);
+					cmd.Parameters.AddWithValue("@UserName", userName);
+					cmd.Parameters.AddWithValue("@Minutes", minutes);
+					cmd.Parameters.AddWithValue("@EntryDatetime", timeStamp.Ticks);
+					cmd.Parameters.AddWithValue("@Description", description);
+
+					cmd.ExecuteNonQuery();
 				}
 			}
 		}
 
-		private class LogContainer {
-			public int ProjectID { get; set; }
-			public string UserName { get; set; }
-			public int Minutes { get; set; }
-			public string Description { get; set; }
-			public DateTime EntryDate { get; set; }
+		public static void SaveProject(long projectID, string projectName, string department, DateTime beginDate, DateTime endDate)
+		{
+			using (var conn = new SQLiteConnection(TimeKeeperData.ConnectionString))
+			{
+				conn.Open();
+
+				if (projectID <= 0)
+				{
+					using (var cmd = new SQLiteCommand("INSERT INTO Project(Name, Department, BeginDate, EndDate) VALUES(@Name, @Department, @BeginDate, @EndDate)", conn))
+					{
+						cmd.CommandType = CommandType.Text;
+
+						cmd.Parameters.AddWithValue("@Name", projectName);
+						cmd.Parameters.AddWithValue("@Department", department);
+						cmd.Parameters.AddWithValue("@BeginDate", beginDate.Ticks);
+						cmd.Parameters.AddWithValue("@EndDate", endDate.Ticks);
+
+						cmd.ExecuteNonQuery();
+					}
+				}
+				else
+				{
+					using (var cmd = new SQLiteCommand("UPDATE Project SET Name = @Name, Department = @Department, BeginDate = @BeginDate, EndDate = @EndDate ) WHERE ProjectID = @ProjectID", conn))
+					{
+						cmd.CommandType = CommandType.Text;
+
+						cmd.Parameters.AddWithValue("@ProjectID", projectID);
+						cmd.Parameters.AddWithValue("@Name", projectName);
+						cmd.Parameters.AddWithValue("@Department", department);
+						cmd.Parameters.AddWithValue("@BeginDate", beginDate.Ticks);
+						cmd.Parameters.AddWithValue("@EndDate", endDate.Ticks);
+
+						cmd.ExecuteNonQuery();
+					}
+
+				}
+			}
+		}
+
+		public static List<ProjectSummary> GetProjectSummary(DateTime beginDate, DateTime endDate)
+		{
+			var projectSummary = new List<ProjectSummary>();
+
+			using (var conn = new SQLiteConnection(TimeKeeperData.ConnectionString))
+			{
+				conn.Open();
+
+				using (var cmd = new SQLiteCommand("SELECT Project.ProjectID, Project.Name, Project.BeginDate, Project.EndDate, LogSum.TotalMinutes FROM (SELECT ProjectID, SUM(minutes) AS TotalMinutes FROM Log WHERE EntryDate > @BeginDate AND EntryDate <= @EndDate GROUP BY ProjectID) AS LogSum INNER JOIN Project ON LogSum.ProjectID = Project.ProjectID", conn))
+				{
+					cmd.CommandType = CommandType.Text;
+
+					cmd.Parameters.AddWithValue("@BeginDate", beginDate.Ticks);
+					cmd.Parameters.AddWithValue("@EndDate", endDate.Ticks);
+
+
+					using (var reader = cmd.ExecuteReader())
+					{
+						while (reader.Read())
+						{
+							int idx = 0;
+							projectSummary.Add(new ProjectSummary()
+							{
+								ProjectID = reader.GetInt64(idx++),
+								ProjectName = reader.GetString(idx++),
+								BeginDate = new DateTime(reader.GetInt64(idx++)),
+								EndDate = new DateTime(reader.GetInt64(idx++)),
+								TotalMinutes = reader.GetInt64(idx++)
+						
+							});
+						}
+					}
+				}
+			}
+
+			return projectSummary;
+		}
+
+		public static List<TimeDetail> GetTimeDetail(DateTime beginDate, DateTime endDate)
+		{
+			var logs = new List<TimeDetail>();
+
+			using (var conn = new SQLiteConnection(TimeKeeperData.ConnectionString))
+			{
+				conn.Open();
+
+				using (var cmd = new SQLiteCommand("SELECT Project.ProjectID, Project.Name, Log.UserName, Log.Minutes, Log.Description, Log.EntryDate FROM Log INNER JOIN Project ON Log.ProjectID = Project.ProjectID WHERE EntryDate > @BeginDate AND EntryDate <= @EndDate", conn))
+				{
+					cmd.CommandType = CommandType.Text;
+
+					cmd.Parameters.AddWithValue("@BeginDate", beginDate.Ticks);
+					cmd.Parameters.AddWithValue("@EndDate", endDate.Ticks);
+
+
+					using (var reader = cmd.ExecuteReader())
+					{
+						while (reader.Read())
+						{
+							int idx = 0;
+							logs.Add(new TimeDetail() {
+								ProjectID = reader.GetInt64(idx++),
+								ProjectName = reader.GetString(idx++),
+								UserName = reader.GetString(idx++),
+								Minutes = reader.GetInt64(idx++),
+								Description = reader.GetString(idx++),
+								EntryDate = new DateTime(reader.GetInt64(idx++))
+							});
+						}
+					}
+				}
+			}
+
+			return logs;
 		}
 
 		public static List<Project> GetProjects()
 		{
-			List<Project> projects = new List<Project>();
+			var projects = new List<Project>();
 
-			SQLiteConnection conn = null;
-			SQLiteCommand cmd = null;
-			SQLiteDataReader reader = null;
-			try
+			using (var conn = new SQLiteConnection(TimeKeeperData.ConnectionString))
 			{
-
-				conn = new SQLiteConnection(TimeKeeperData.ConnectionString);
 				conn.Open();
 
-				cmd = new SQLiteCommand("SELECT ProjectID, Name, Department FROM Project", conn);
-				cmd.CommandType = CommandType.Text;
-
-
-				reader = cmd.ExecuteReader();
-
-				while (reader.Read())
+				using (var cmd = new SQLiteCommand("SELECT ProjectID, Name, Department, BeginDate, EndDate FROM Project", conn))
 				{
-					projects.Add(new Project() { ProjectID = reader.GetInt32(0), Name = reader.GetString(1), Department = reader.GetString(2) });
+					cmd.CommandType = CommandType.Text;
+
+					using (var reader = cmd.ExecuteReader())
+					{
+						while (reader.Read())
+						{
+							int idx = 0;
+							projects.Add(new Project() {
+								ProjectID = reader.GetInt64(idx++),
+								Name = reader.GetString(idx++),
+								Department = reader.GetString(idx++),
+								BeginDate = new DateTime(reader.GetInt64(idx++)),
+								EndDate = new DateTime(reader.GetInt64(idx++))
+							});
+						}
+					}
 				}
 			}
-			finally
-			{
-				if (reader != null)
-				{
-					reader.Close();
-					reader.Dispose();
-				}
-
-				if (cmd != null)
-				{
-					cmd.Dispose();
-				}
-
-				if (conn != null)
-				{
-					conn.Close();
-					conn.Dispose();
-				}
-			}
-
+			
 			return projects;
 		}
-
-		private static void CacheProjects(List<Project> projects)
-		{
-			/* We failed to retrieve and cache the projects so load the previously cached projects instead */
-			SQLiteConnection conn = null;
-			SQLiteCommand cmd = null;
-			SQLiteDataReader reader = null;
-			try
-			{
-
-				conn = new SQLiteConnection(TimeKeeperData.ConnectionString);
-				conn.Open();
-
-				cmd = new SQLiteCommand("", conn);
-				cmd.CommandType = CommandType.Text;
-
-
-				cmd.CommandText = "DELETE FROM Project";
-				cmd.ExecuteNonQuery();
-
-				foreach (Project project in projects)
-				{
-					cmd.Parameters.Clear();
-					cmd.CommandText ="INSERT INTO Project(ProjectID, Name, Department) VALUES(@ProjectID, @Name, @Department)";
-
-					SQLiteParameter param = cmd.CreateParameter();
-					param.ParameterName = "ProjectID";
-					param.Value = project.ProjectID;
-					cmd.Parameters.Add(param);
-
-					param = cmd.CreateParameter();
-					param.ParameterName = "Name";
-					param.Value = project.Name;
-					cmd.Parameters.Add(param);
-
-					param = cmd.CreateParameter();
-					param.ParameterName = "Department";
-					param.Value = project.Department;
-					cmd.Parameters.Add(param);
-
-
-					cmd.ExecuteNonQuery();
-				}
-
-			}
-			finally
-			{
-				if (reader != null)
-				{
-					reader.Close();
-					reader.Dispose();
-				}
-
-				if (cmd != null)
-				{
-					cmd.Dispose();
-				}
-
-				if (conn != null)
-				{
-					conn.Close();
-					conn.Dispose();
-				}
-			}
-
-		}
-
-		public static int GetPendingLogCount()
-		{
-			int pendingLogCount = 0;
-
-
-			SQLiteConnection conn = null;
-			SQLiteCommand cmd = null;
-			try
-			{
-
-				conn = new SQLiteConnection(TimeKeeperData.ConnectionString);
-				conn.Open();
-
-				cmd = new SQLiteCommand("SELECT COUNT(*) FROM Log", conn as SQLiteConnection);
-				cmd.CommandType = CommandType.Text;
-
-
-				pendingLogCount = Convert.ToInt32(cmd.ExecuteScalar());
-			}
-			finally
-			{
-				if (cmd != null)
-				{
-					cmd.Dispose();
-				}
-
-				if (conn != null)
-				{
-					conn.Close();
-					conn.Dispose();
-				}
-			}
-
-			return pendingLogCount;
-		}
-
 	}
 }

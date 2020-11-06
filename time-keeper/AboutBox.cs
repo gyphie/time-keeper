@@ -101,14 +101,5 @@ namespace TimeKeeper
 		{
 			this.Close();
 		}
-
-		private void btnUpdate_Click(object sender, EventArgs e)
-		{
-			if (Program.CheckForUpdate(true))
-			{
-				Application.Exit();
-			}
-		}
-
 	}
 }

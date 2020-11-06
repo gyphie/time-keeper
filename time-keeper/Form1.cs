@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using Common;
+using Common.Helpers.DataTypes;
 using Microsoft.Win32;
 using TimeKeeper.Grid;
 using TimeKeeper.Properties;
@@ -40,7 +41,7 @@ namespace TimeKeeper
 		private DateTime timeSinceLastSave = DateTime.Now;
 		private DateTime timeSinceLastPrompt = DateTime.Now;
 		private DateTime delayUntil = DateTime.MinValue;
-		//private string currentUser = "";
+
 		private KH.KeyboardHook hotKeyHook = new KH.KeyboardHook();
 		private TimeReport timeReportForm = new TimeReport();
 		private NewProject newProjectForm = new NewProject();
@@ -130,7 +131,7 @@ namespace TimeKeeper
 				this.originalBackColor = this.btnSave.BackColor;
 				this.timFlasher.Start();
 
-				string localDataStorePath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "TimeKeeper", setting.LocalStoreName);
+				string localDataStorePath = System.IO.Path.Combine(Application.LocalUserAppDataPath, setting.LocalStoreName);
 				TimeKeeperData.ConnectionString = "Data Source=" + localDataStorePath;
 
 				if (!System.IO.File.Exists(localDataStorePath))
@@ -138,6 +139,8 @@ namespace TimeKeeper
 					System.IO.Directory.CreateDirectory(System.IO.Path.GetDirectoryName(localDataStorePath));
 					System.IO.File.Copy(System.IO.Path.Combine(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location), setting.LocalStoreName), localDataStorePath);
 				}
+
+				this.dispName.Text = setting.userName.IsEmpty() ? "Unknown" : setting.userName;
 			}
 			catch (Exception ex)
 			{
@@ -257,7 +260,6 @@ namespace TimeKeeper
 			{
 				this.SetupGrid();
 				this.UpdateTimeLabel();
-				this.UpdateSyncLabel();
 
 				this.MoveToScreen(false);
 				this.ShowInTaskbar = true;
@@ -350,7 +352,10 @@ namespace TimeKeeper
 
 		private void frmTimeKeeper_Deactivate(object sender, EventArgs e)
 		{
-			this.Opacity = (double)((100 - Settings.Default.opacity) / 100m);
+			if (!this.shouldExit)
+			{
+				this.Opacity = (double)((100 - Settings.Default.opacity) / 100m);
+			}
 		}
 
 
@@ -443,13 +448,6 @@ namespace TimeKeeper
 			}
 		}
 
-		private void UpdateSyncLabel()
-		{
-			int unsyncCount = TimeKeeperData.GetPendingLogCount();
-			this.dispUnsyncdLogs.Text = string.Format("Unsync'd Logs: {0}", unsyncCount);
-			this.dispUnsyncdLogs.Visible = unsyncCount > 0;
-		}
-
 		#region Grid Handling
 		private List<Row> rows = new List<Row>();
 
@@ -471,11 +469,26 @@ namespace TimeKeeper
 					row.ProjectBox.KeyUp += new KeyEventHandler(Row_KeyUp);
 					row.TimeBox.TextChanged += new EventHandler(TimeBox_TextChanged);
 					row.TimeBox.Leave += new EventHandler(TimeBox_Leave);
+
+					// Events that bring the box to the front so the UI border effects display correctly since the boxes overlap slightly
+					row.ProjectBox.MouseEnter += new EventHandler(this.GridControl_Enter);
+					row.ProjectBox.Enter += new EventHandler(this.GridControl_Enter);
+					row.TimeBox.MouseEnter += new EventHandler(this.GridControl_Enter);
+					row.TimeBox.Enter += new EventHandler(this.GridControl_Enter);
+					row.DescriptionBox.MouseEnter += new EventHandler(this.GridControl_Enter);
+					row.DescriptionBox.Enter += new EventHandler(this.GridControl_Enter);
+
+					// Fix WinForms auto height sizing of text boxes so they match the taller combobox
+					row.TimeBox.AutoSize = false;
+					row.DescriptionBox.AutoSize = false;
+					row.TimeBox.Height = row.ProjectBox.Height;
+					row.DescriptionBox.Height = row.ProjectBox.Height;
 				}
 			}
 
 			this.RefreshGrid();
 		}
+
 
 		private void RefreshGrid()
 		{
@@ -568,18 +581,18 @@ namespace TimeKeeper
 
 		public void SaveTime()
 		{
-			List<string> errorMessages = new List<string>();
-			bool hasEnteredTimes = false;
+			var errorMessages = new List<string>();
+			var hasEnteredTimes = false;
 
 			foreach (Row row in this.rows)
 			{
-				Project project = row.ProjectBox.SelectedItem as Project;
+				var project = row.ProjectBox.SelectedItem as Project;
 				int minutes = row.GetTime();
 				if (project != null && minutes > 0)
 				{
 					try
 					{
-						TimeKeeperData.Save(project.ProjectID, minutes, row.DescriptionBox.Text, DateTime.Now);
+						TimeKeeperData.SaveLog(project.ProjectID, Settings.Default.userName, minutes, row.DescriptionBox.Text, DateTime.Now);
 						row.SetTime(0, false);
 						hasEnteredTimes = true;
 					}
@@ -647,25 +660,25 @@ namespace TimeKeeper
 
 		private void promptToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			ToolStripMenuItem clicked = sender as ToolStripMenuItem;
-			Settings.Default.interval = (int)clicked.Tag;
+			var clickedMenuItem = sender as ToolStripMenuItem;
+			Settings.Default.interval = (int)clickedMenuItem.Tag;
 
-			this.prompt5ToolStripMenuItem.Checked = (TimeKeeper.PromptIntervals)clicked.Tag == TimeKeeper.PromptIntervals.Five;
-			this.prompt10ToolStripMenuItem.Checked = (TimeKeeper.PromptIntervals)clicked.Tag == TimeKeeper.PromptIntervals.Ten;
-			this.prompt15ToolStripMenuItem.Checked = (TimeKeeper.PromptIntervals)clicked.Tag == TimeKeeper.PromptIntervals.Fifteen;
-			this.prompt30ToolStripMenuItem.Checked = (TimeKeeper.PromptIntervals)clicked.Tag == TimeKeeper.PromptIntervals.Thirty;
-			this.prompt60ToolStripMenuItem.Checked = (TimeKeeper.PromptIntervals)clicked.Tag == TimeKeeper.PromptIntervals.OneHour;
+			this.prompt5ToolStripMenuItem.Checked = (TimeKeeper.PromptIntervals)clickedMenuItem.Tag == TimeKeeper.PromptIntervals.Five;
+			this.prompt10ToolStripMenuItem.Checked = (TimeKeeper.PromptIntervals)clickedMenuItem.Tag == TimeKeeper.PromptIntervals.Ten;
+			this.prompt15ToolStripMenuItem.Checked = (TimeKeeper.PromptIntervals)clickedMenuItem.Tag == TimeKeeper.PromptIntervals.Fifteen;
+			this.prompt30ToolStripMenuItem.Checked = (TimeKeeper.PromptIntervals)clickedMenuItem.Tag == TimeKeeper.PromptIntervals.Thirty;
+			this.prompt60ToolStripMenuItem.Checked = (TimeKeeper.PromptIntervals)clickedMenuItem.Tag == TimeKeeper.PromptIntervals.OneHour;
 
 		}
 		private void transToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			ToolStripMenuItem clicked = sender as ToolStripMenuItem;
-			Settings.Default.opacity = (int)clicked.Tag;
+			var clickedMenuItem = sender as ToolStripMenuItem;
+			Settings.Default.opacity = (int)clickedMenuItem.Tag;
 
-			this.trans0StripMenuItem.Checked = (TimeKeeper.WindowTransparency)clicked.Tag == TimeKeeper.WindowTransparency.Zero;
-			this.trans25StripMenuItem.Checked = (TimeKeeper.WindowTransparency)clicked.Tag == TimeKeeper.WindowTransparency.TwentyFive;
-			this.trans50StripMenuItem.Checked = (TimeKeeper.WindowTransparency)clicked.Tag == TimeKeeper.WindowTransparency.Fifty;
-			this.trans75StripMenuItem.Checked = (TimeKeeper.WindowTransparency)clicked.Tag == TimeKeeper.WindowTransparency.SeventyFive;
+			this.trans0StripMenuItem.Checked = (TimeKeeper.WindowTransparency)clickedMenuItem.Tag == TimeKeeper.WindowTransparency.Zero;
+			this.trans25StripMenuItem.Checked = (TimeKeeper.WindowTransparency)clickedMenuItem.Tag == TimeKeeper.WindowTransparency.TwentyFive;
+			this.trans50StripMenuItem.Checked = (TimeKeeper.WindowTransparency)clickedMenuItem.Tag == TimeKeeper.WindowTransparency.Fifty;
+			this.trans75StripMenuItem.Checked = (TimeKeeper.WindowTransparency)clickedMenuItem.Tag == TimeKeeper.WindowTransparency.SeventyFive;
 
 		}
 
@@ -715,36 +728,29 @@ namespace TimeKeeper
 
 		}
 
-		private void checkForUpdatesToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			if (Program.CheckForUpdate(true))
-			{
-				Application.Exit();
-			}
-		}
-
 		private void weekToDateDetailToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			this.ShowNotTop();
-			this.timeReportForm.ShowTimeDetail(Settings.Default.userName, this);
+			this.timeReportForm.ShowTimeDetail(this);
 			this.ShowTop(false);
 		}
 
 		private void weekToDateSummaryToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			this.ShowNotTop();
-			this.timeReportForm.ShowTimeSummary(Settings.Default.userName, this);
+			this.timeReportForm.ShowTimeSummary(this);
 			this.ShowTop(false);
 		}
 
 		private void nameToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			this.ShowNotTop();
-			string userName = string.IsNullOrWhiteSpace(Settings.Default.userName) ? this.GetWindowsFullName() : Settings.Default.userName;
+
+			var userName = Settings.Default.userName.IsEmpty() ? this.GetWindowsFullName() : Settings.Default.userName;
 			do
 			{
-				userName = Microsoft.VisualBasic.Interaction.InputBox("Enter the name you wish to use for recording time.", "User Name", userName).SafeTrim();
-			} while (string.IsNullOrWhiteSpace(userName));
+				userName = Microsoft.VisualBasic.Interaction.InputBox("Enter the name you wish to use for recording time.", "User Name", userName)?.Trim();
+			} while (userName.IsEmpty());
 
 			Settings.Default.userName = userName;
 			Settings.Default.Save();
@@ -771,6 +777,11 @@ namespace TimeKeeper
 		private void dispUnsyncdLogs_Click(object sender, EventArgs e)
 		{
 			MessageBox.Show("Some time entries could not be sent to the remote database.  They have been saved to your computer and will be sent as soon as the remote database is available again.", "Unsync'd Logs");
+		}
+
+		private void GridControl_Enter(object sender, EventArgs e)
+		{
+			this.Controls.SetChildIndex(sender as Control, 0);
 		}
 	}
 }

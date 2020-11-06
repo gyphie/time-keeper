@@ -48,6 +48,7 @@
 			this.dispMinutes = new System.Windows.Forms.Label();
 			this.msMain = new System.Windows.Forms.MenuStrip();
 			this.timeKeeperToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.newProjectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.exitToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -63,7 +64,6 @@
 			this.hour8ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.clearPauseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.checkForUpdatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.prompToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.prompt5ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -78,7 +78,6 @@
 			this.trans75StripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.buttonColorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.nameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.dispUnsyncdLogs = new System.Windows.Forms.Label();
 			this.llDiscardTime = new System.Windows.Forms.LinkLabel();
 			this.timeBox7 = new System.Windows.Forms.TextBox();
 			this.timeBox6 = new System.Windows.Forms.TextBox();
@@ -101,7 +100,6 @@
 			this.projectBox3 = new GroupedComboBox();
 			this.projectBox2 = new GroupedComboBox();
 			this.projectBox1 = new GroupedComboBox();
-			this.newProjectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.cmsNotifyIcon.SuspendLayout();
 			this.msMain.SuspendLayout();
 			this.SuspendLayout();
@@ -261,17 +259,24 @@
 			this.timeKeeperToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
 			this.timeKeeperToolStripMenuItem.Text = "&File";
 			// 
+			// newProjectToolStripMenuItem
+			// 
+			this.newProjectToolStripMenuItem.Name = "newProjectToolStripMenuItem";
+			this.newProjectToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+			this.newProjectToolStripMenuItem.Text = "&New Project...";
+			this.newProjectToolStripMenuItem.Click += new System.EventHandler(this.newProjectToolStripMenuItem_Click);
+			// 
 			// aboutToolStripMenuItem
 			// 
 			this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-			this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.aboutToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
 			this.aboutToolStripMenuItem.Text = "&About...";
 			this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
 			// 
 			// exitToolStripMenuItem1
 			// 
 			this.exitToolStripMenuItem1.Name = "exitToolStripMenuItem1";
-			this.exitToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+			this.exitToolStripMenuItem1.Size = new System.Drawing.Size(147, 22);
 			this.exitToolStripMenuItem1.Text = "E&xit";
 			this.exitToolStripMenuItem1.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
 			// 
@@ -281,10 +286,9 @@
             this.reportsToolStripMenuItem,
             this.resetTimeToolStripMenuItem,
             this.pauseToolStripMenuItem,
-            this.clearToolStripMenuItem,
-            this.checkForUpdatesToolStripMenuItem});
+            this.clearToolStripMenuItem});
 			this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-			this.toolsToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
+			this.toolsToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
 			this.toolsToolStripMenuItem.Text = "&Tools";
 			// 
 			// reportsToolStripMenuItem
@@ -293,27 +297,27 @@
             this.weekToDateDetailToolStripMenuItem,
             this.weekToDateSummaryToolStripMenuItem});
 			this.reportsToolStripMenuItem.Name = "reportsToolStripMenuItem";
-			this.reportsToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+			this.reportsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.reportsToolStripMenuItem.Text = "Reports";
 			// 
 			// weekToDateDetailToolStripMenuItem
 			// 
 			this.weekToDateDetailToolStripMenuItem.Name = "weekToDateDetailToolStripMenuItem";
-			this.weekToDateDetailToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
-			this.weekToDateDetailToolStripMenuItem.Text = "Week to Date Detail...";
+			this.weekToDateDetailToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.weekToDateDetailToolStripMenuItem.Text = "Log Detail...";
 			this.weekToDateDetailToolStripMenuItem.Click += new System.EventHandler(this.weekToDateDetailToolStripMenuItem_Click);
 			// 
 			// weekToDateSummaryToolStripMenuItem
 			// 
 			this.weekToDateSummaryToolStripMenuItem.Name = "weekToDateSummaryToolStripMenuItem";
-			this.weekToDateSummaryToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
-			this.weekToDateSummaryToolStripMenuItem.Text = "Week to Date Summary...";
+			this.weekToDateSummaryToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.weekToDateSummaryToolStripMenuItem.Text = "Project Summary...";
 			this.weekToDateSummaryToolStripMenuItem.Click += new System.EventHandler(this.weekToDateSummaryToolStripMenuItem_Click);
 			// 
 			// resetTimeToolStripMenuItem
 			// 
 			this.resetTimeToolStripMenuItem.Name = "resetTimeToolStripMenuItem";
-			this.resetTimeToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+			this.resetTimeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.resetTimeToolStripMenuItem.Text = "&Reset Time";
 			this.resetTimeToolStripMenuItem.Click += new System.EventHandler(this.btnDiscard_Click);
 			// 
@@ -327,7 +331,7 @@
             this.hour8ToolStripMenuItem,
             this.clearPauseToolStripMenuItem});
 			this.pauseToolStripMenuItem.Name = "pauseToolStripMenuItem";
-			this.pauseToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+			this.pauseToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.pauseToolStripMenuItem.Text = "&Pause Prompting";
 			// 
 			// minutes15ToolStripMenuItem
@@ -375,16 +379,9 @@
 			// clearToolStripMenuItem
 			// 
 			this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
-			this.clearToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+			this.clearToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.clearToolStripMenuItem.Text = "&Clear Entries";
 			this.clearToolStripMenuItem.Click += new System.EventHandler(this.clearToolStripMenuItem_Click);
-			// 
-			// checkForUpdatesToolStripMenuItem
-			// 
-			this.checkForUpdatesToolStripMenuItem.Name = "checkForUpdatesToolStripMenuItem";
-			this.checkForUpdatesToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
-			this.checkForUpdatesToolStripMenuItem.Text = "Check For &Updates...";
-			this.checkForUpdatesToolStripMenuItem.Click += new System.EventHandler(this.checkForUpdatesToolStripMenuItem_Click);
 			// 
 			// settingsToolStripMenuItem
 			// 
@@ -406,7 +403,7 @@
             this.prompt30ToolStripMenuItem,
             this.prompt60ToolStripMenuItem});
 			this.prompToolStripMenuItem.Name = "prompToolStripMenuItem";
-			this.prompToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
+			this.prompToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
 			this.prompToolStripMenuItem.Text = "&Prompt Every";
 			// 
 			// prompt5ToolStripMenuItem
@@ -452,7 +449,7 @@
             this.trans50StripMenuItem,
             this.trans75StripMenuItem});
 			this.windowTransparencyToolStripMenuItem.Name = "windowTransparencyToolStripMenuItem";
-			this.windowTransparencyToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
+			this.windowTransparencyToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
 			this.windowTransparencyToolStripMenuItem.Text = "&Window Transparency";
 			// 
 			// trans0StripMenuItem
@@ -486,29 +483,16 @@
 			// buttonColorToolStripMenuItem
 			// 
 			this.buttonColorToolStripMenuItem.Name = "buttonColorToolStripMenuItem";
-			this.buttonColorToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
+			this.buttonColorToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
 			this.buttonColorToolStripMenuItem.Text = "&Button Color...";
 			this.buttonColorToolStripMenuItem.Click += new System.EventHandler(this.btnColor_Click);
 			// 
 			// nameToolStripMenuItem
 			// 
 			this.nameToolStripMenuItem.Name = "nameToolStripMenuItem";
-			this.nameToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
+			this.nameToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
 			this.nameToolStripMenuItem.Text = "Name...";
 			this.nameToolStripMenuItem.Click += new System.EventHandler(this.nameToolStripMenuItem_Click);
-			// 
-			// dispUnsyncdLogs
-			// 
-			this.dispUnsyncdLogs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.dispUnsyncdLogs.AutoSize = true;
-			this.dispUnsyncdLogs.BackColor = System.Drawing.Color.Red;
-			this.dispUnsyncdLogs.Location = new System.Drawing.Point(375, 2);
-			this.dispUnsyncdLogs.Name = "dispUnsyncdLogs";
-			this.dispUnsyncdLogs.Padding = new System.Windows.Forms.Padding(3);
-			this.dispUnsyncdLogs.Size = new System.Drawing.Size(95, 19);
-			this.dispUnsyncdLogs.TabIndex = 1;
-			this.dispUnsyncdLogs.Text = "Unsync\'d Logs: 0";
-			this.dispUnsyncdLogs.Click += new System.EventHandler(this.dispUnsyncdLogs_Click);
 			// 
 			// llDiscardTime
 			// 
@@ -523,98 +507,99 @@
 			// 
 			// timeBox7
 			// 
-			this.timeBox7.Location = new System.Drawing.Point(237, 175);
+			this.timeBox7.Location = new System.Drawing.Point(236, 170);
 			this.timeBox7.Name = "timeBox7";
 			this.timeBox7.Size = new System.Drawing.Size(45, 20);
 			this.timeBox7.TabIndex = 24;
 			// 
 			// timeBox6
 			// 
-			this.timeBox6.Location = new System.Drawing.Point(237, 155);
+			this.timeBox6.Location = new System.Drawing.Point(236, 150);
 			this.timeBox6.Name = "timeBox6";
 			this.timeBox6.Size = new System.Drawing.Size(45, 20);
 			this.timeBox6.TabIndex = 21;
 			// 
 			// timeBox5
 			// 
-			this.timeBox5.Location = new System.Drawing.Point(237, 134);
+			this.timeBox5.Location = new System.Drawing.Point(236, 130);
 			this.timeBox5.Name = "timeBox5";
 			this.timeBox5.Size = new System.Drawing.Size(45, 20);
 			this.timeBox5.TabIndex = 18;
 			// 
 			// timeBox4
 			// 
-			this.timeBox4.Location = new System.Drawing.Point(237, 113);
+			this.timeBox4.Location = new System.Drawing.Point(236, 110);
 			this.timeBox4.Name = "timeBox4";
 			this.timeBox4.Size = new System.Drawing.Size(45, 20);
 			this.timeBox4.TabIndex = 15;
 			// 
 			// timeBox3
 			// 
-			this.timeBox3.Location = new System.Drawing.Point(237, 92);
+			this.timeBox3.Location = new System.Drawing.Point(236, 90);
 			this.timeBox3.Name = "timeBox3";
 			this.timeBox3.Size = new System.Drawing.Size(45, 20);
 			this.timeBox3.TabIndex = 12;
 			// 
 			// timeBox2
 			// 
-			this.timeBox2.Location = new System.Drawing.Point(237, 71);
+			this.timeBox2.Location = new System.Drawing.Point(236, 70);
 			this.timeBox2.Name = "timeBox2";
 			this.timeBox2.Size = new System.Drawing.Size(45, 20);
 			this.timeBox2.TabIndex = 9;
 			// 
 			// descriptionBox7
 			// 
-			this.descriptionBox7.Location = new System.Drawing.Point(282, 175);
+			this.descriptionBox7.Location = new System.Drawing.Point(280, 170);
 			this.descriptionBox7.Name = "descriptionBox7";
 			this.descriptionBox7.Size = new System.Drawing.Size(194, 20);
 			this.descriptionBox7.TabIndex = 25;
 			// 
 			// descriptionBox6
 			// 
-			this.descriptionBox6.Location = new System.Drawing.Point(282, 155);
+			this.descriptionBox6.Location = new System.Drawing.Point(280, 150);
 			this.descriptionBox6.Name = "descriptionBox6";
 			this.descriptionBox6.Size = new System.Drawing.Size(194, 20);
 			this.descriptionBox6.TabIndex = 22;
 			// 
 			// descriptionBox5
 			// 
-			this.descriptionBox5.Location = new System.Drawing.Point(282, 134);
+			this.descriptionBox5.Location = new System.Drawing.Point(280, 130);
 			this.descriptionBox5.Name = "descriptionBox5";
 			this.descriptionBox5.Size = new System.Drawing.Size(194, 20);
 			this.descriptionBox5.TabIndex = 19;
 			// 
 			// descriptionBox4
 			// 
-			this.descriptionBox4.Location = new System.Drawing.Point(282, 113);
+			this.descriptionBox4.Location = new System.Drawing.Point(280, 110);
 			this.descriptionBox4.Name = "descriptionBox4";
 			this.descriptionBox4.Size = new System.Drawing.Size(194, 20);
 			this.descriptionBox4.TabIndex = 16;
 			// 
 			// descriptionBox3
 			// 
-			this.descriptionBox3.Location = new System.Drawing.Point(282, 92);
+			this.descriptionBox3.Location = new System.Drawing.Point(280, 90);
 			this.descriptionBox3.Name = "descriptionBox3";
 			this.descriptionBox3.Size = new System.Drawing.Size(194, 20);
 			this.descriptionBox3.TabIndex = 13;
 			// 
 			// descriptionBox2
 			// 
-			this.descriptionBox2.Location = new System.Drawing.Point(282, 71);
+			this.descriptionBox2.Location = new System.Drawing.Point(280, 70);
 			this.descriptionBox2.Name = "descriptionBox2";
 			this.descriptionBox2.Size = new System.Drawing.Size(194, 20);
 			this.descriptionBox2.TabIndex = 10;
 			// 
 			// descriptionBox1
 			// 
-			this.descriptionBox1.Location = new System.Drawing.Point(282, 50);
+			this.descriptionBox1.Location = new System.Drawing.Point(280, 50);
 			this.descriptionBox1.Name = "descriptionBox1";
 			this.descriptionBox1.Size = new System.Drawing.Size(194, 20);
 			this.descriptionBox1.TabIndex = 7;
 			// 
 			// timeBox1
 			// 
-			this.timeBox1.Location = new System.Drawing.Point(237, 50);
+			this.timeBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.timeBox1.Location = new System.Drawing.Point(236, 50);
 			this.timeBox1.Name = "timeBox1";
 			this.timeBox1.Size = new System.Drawing.Size(45, 20);
 			this.timeBox1.TabIndex = 6;
@@ -630,7 +615,7 @@
 			this.projectBox7.FormattingEnabled = true;
 			this.projectBox7.GroupMember = "Department";
 			this.projectBox7.IntegralHeight = false;
-			this.projectBox7.Location = new System.Drawing.Point(12, 175);
+			this.projectBox7.Location = new System.Drawing.Point(12, 170);
 			this.projectBox7.Name = "projectBox7";
 			this.projectBox7.Size = new System.Drawing.Size(225, 21);
 			this.projectBox7.TabIndex = 23;
@@ -647,7 +632,7 @@
 			this.projectBox6.FormattingEnabled = true;
 			this.projectBox6.GroupMember = "Department";
 			this.projectBox6.IntegralHeight = false;
-			this.projectBox6.Location = new System.Drawing.Point(12, 155);
+			this.projectBox6.Location = new System.Drawing.Point(12, 150);
 			this.projectBox6.Name = "projectBox6";
 			this.projectBox6.Size = new System.Drawing.Size(225, 21);
 			this.projectBox6.TabIndex = 20;
@@ -664,7 +649,7 @@
 			this.projectBox5.FormattingEnabled = true;
 			this.projectBox5.GroupMember = "Department";
 			this.projectBox5.IntegralHeight = false;
-			this.projectBox5.Location = new System.Drawing.Point(12, 134);
+			this.projectBox5.Location = new System.Drawing.Point(12, 130);
 			this.projectBox5.Name = "projectBox5";
 			this.projectBox5.Size = new System.Drawing.Size(225, 21);
 			this.projectBox5.TabIndex = 17;
@@ -681,7 +666,7 @@
 			this.projectBox4.FormattingEnabled = true;
 			this.projectBox4.GroupMember = "Department";
 			this.projectBox4.IntegralHeight = false;
-			this.projectBox4.Location = new System.Drawing.Point(12, 113);
+			this.projectBox4.Location = new System.Drawing.Point(12, 110);
 			this.projectBox4.Name = "projectBox4";
 			this.projectBox4.Size = new System.Drawing.Size(225, 21);
 			this.projectBox4.TabIndex = 14;
@@ -698,7 +683,7 @@
 			this.projectBox3.FormattingEnabled = true;
 			this.projectBox3.GroupMember = "Department";
 			this.projectBox3.IntegralHeight = false;
-			this.projectBox3.Location = new System.Drawing.Point(12, 92);
+			this.projectBox3.Location = new System.Drawing.Point(12, 90);
 			this.projectBox3.Name = "projectBox3";
 			this.projectBox3.Size = new System.Drawing.Size(225, 21);
 			this.projectBox3.TabIndex = 11;
@@ -715,7 +700,7 @@
 			this.projectBox2.FormattingEnabled = true;
 			this.projectBox2.GroupMember = "Department";
 			this.projectBox2.IntegralHeight = false;
-			this.projectBox2.Location = new System.Drawing.Point(12, 71);
+			this.projectBox2.Location = new System.Drawing.Point(12, 70);
 			this.projectBox2.Name = "projectBox2";
 			this.projectBox2.Size = new System.Drawing.Size(225, 21);
 			this.projectBox2.TabIndex = 8;
@@ -737,13 +722,6 @@
 			this.projectBox1.Size = new System.Drawing.Size(225, 21);
 			this.projectBox1.TabIndex = 5;
 			this.projectBox1.ValueMember = "ProjectID";
-			// 
-			// newProjectToolStripMenuItem
-			// 
-			this.newProjectToolStripMenuItem.Name = "newProjectToolStripMenuItem";
-			this.newProjectToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-			this.newProjectToolStripMenuItem.Text = "&New Project...";
-			this.newProjectToolStripMenuItem.Click += new System.EventHandler(this.newProjectToolStripMenuItem_Click);
 			// 
 			// frmTimeKeeper
 			// 
@@ -773,7 +751,6 @@
 			this.Controls.Add(this.projectBox2);
 			this.Controls.Add(this.projectBox1);
 			this.Controls.Add(this.llDiscardTime);
-			this.Controls.Add(this.dispUnsyncdLogs);
 			this.Controls.Add(this.msMain);
 			this.Controls.Add(this.dispMinutes);
 			this.Controls.Add(this.lblDescription);
@@ -792,7 +769,7 @@
 			this.Name = "frmTimeKeeper";
 			this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-			this.Text = "TimeKeeper";
+			this.Text = "Time Keeper";
 			this.Activated += new System.EventHandler(this.frmTimeKeeper_Activated);
 			this.Deactivate += new System.EventHandler(this.frmTimeKeeper_Deactivate);
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmTimeKeeper_FormClosing);
@@ -839,7 +816,6 @@
 		private System.Windows.Forms.ToolStripMenuItem trans25StripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem trans50StripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem trans75StripMenuItem;
-		private System.Windows.Forms.Label dispUnsyncdLogs;
 		private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem resetTimeToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem pauseToolStripMenuItem;
@@ -852,7 +828,6 @@
 		private System.Windows.Forms.ToolStripMenuItem clearToolStripMenuItem;
 		private System.Windows.Forms.LinkLabel llDiscardTime;
 		private System.Windows.Forms.ToolStripMenuItem buttonColorToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem checkForUpdatesToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem reportsToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem weekToDateDetailToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem weekToDateSummaryToolStripMenuItem;

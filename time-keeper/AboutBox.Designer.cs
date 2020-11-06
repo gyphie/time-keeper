@@ -36,7 +36,6 @@
 			this.labelCompanyName = new System.Windows.Forms.Label();
 			this.textBoxDescription = new System.Windows.Forms.TextBox();
 			this.panel1 = new System.Windows.Forms.Panel();
-			this.btnUpdate = new System.Windows.Forms.Button();
 			this.okButton = new System.Windows.Forms.Button();
 			this.tableLayoutPanel.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).BeginInit();
@@ -141,26 +140,17 @@
 			this.textBoxDescription.Size = new System.Drawing.Size(318, 217);
 			this.textBoxDescription.TabIndex = 23;
 			this.textBoxDescription.TabStop = false;
-			this.textBoxDescription.Text = resources.GetString("textBoxDescription.Text");
+			this.textBoxDescription.Text = "WIN + Q : Open and focus on TimeKeeper\r\nEnter : Save entered time\r\nEsc : Hide Tim" +
+    "eKeeper\r\n\r\nHelp\r\n-------------\r\n- Time is converted to h:mm format\r\n- Logs are k" +
+    "ept locally in the user AppData\r\n";
 			// 
 			// panel1
 			// 
-			this.panel1.Controls.Add(this.btnUpdate);
 			this.panel1.Controls.Add(this.okButton);
 			this.panel1.Location = new System.Drawing.Point(163, 311);
 			this.panel1.Name = "panel1";
 			this.panel1.Size = new System.Drawing.Size(321, 29);
 			this.panel1.TabIndex = 24;
-			// 
-			// btnUpdate
-			// 
-			this.btnUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnUpdate.Location = new System.Drawing.Point(6, 3);
-			this.btnUpdate.Name = "btnUpdate";
-			this.btnUpdate.Size = new System.Drawing.Size(106, 23);
-			this.btnUpdate.TabIndex = 24;
-			this.btnUpdate.Text = "&Check for Updates";
-			this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
 			// 
 			// okButton
 			// 
@@ -209,6 +199,5 @@
 		private System.Windows.Forms.TextBox textBoxDescription;
 		private System.Windows.Forms.Button okButton;
 		private System.Windows.Forms.Panel panel1;
-		private System.Windows.Forms.Button btnUpdate;
 	}
 }

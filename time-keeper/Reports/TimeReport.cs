@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
+﻿using Common.Helpers.DataTypes;
+using System;
 using System.Windows.Forms;
 
 namespace TimeKeeper
@@ -18,27 +13,36 @@ namespace TimeKeeper
 
 		private void TimeReport_Load(object sender, EventArgs e)
 		{
+			this.rvTimeKeeper.RefreshReport();
 		}
 
-		public DialogResult ShowTimeDetail(string userID, IWin32Window owner)
+		public DialogResult ShowTimeDetail(IWin32Window owner)
 		{
 			try
 			{
 				DateTime now = DateTime.Now;
 				DateTime beginDate = new DateTime(now.Year, now.Month, now.Day, 0, 0, 0).AddDays(-(int)now.DayOfWeek);
-				DateTime endDate = beginDate.AddDays(7);
+				DateTime endDate = beginDate.AddDays(40);
 
 
-				this.Text = "Week to Date Detail";
+				this.Text = "40 Day Detail";
 
-				this.timeDetailGrid.Visible = true;
-				this.projectSummaryGrid.Visible = false;
+				this.TimeDetailBindingSource.DataSource = TimeKeeperData.GetTimeDetail(beginDate, endDate);
 
-				this.TimeDetailBindingSource.DataSource = TimeKeeper.RemoteData.GetTimeDetail(userID, beginDate, endDate);
+				var dataSource = new Microsoft.Reporting.WinForms.ReportDataSource
+				{
+					Name = "DataSet1",
+					Value = this.TimeDetailBindingSource
+				};
+				this.rvTimeKeeper.LocalReport.DataSources.Clear();
+				this.rvTimeKeeper.LocalReport.DataSources.Add(dataSource);
+				this.rvTimeKeeper.LocalReport.ReportEmbeddedResource = "TimeKeeper.Reports.TimeDetail.rdlc";
+				this.rvTimeKeeper.RefreshReport();
+
 			}
 			catch (Exception ex)
 			{
-				MessageBox.Show("The Report could not be loaded. Report this please. Here are the details\n\n" + DAL.Utilities.Library.DataTypes.Strings.ExceptionToDetailText(ex), "TimeKeeper - Time Detail Report");
+				MessageBox.Show("The Report could not be loaded. Report this please. Here are the details\n\n" + ex.ToDetailText(), "TimeKeeper - Time Detail Report");
 				return DialogResult.Abort;
 			}
 
@@ -46,23 +50,31 @@ namespace TimeKeeper
 			return this.ShowDialog(owner);
 		}
 
-		public DialogResult ShowTimeSummary(string userID, IWin32Window owner)
+		public DialogResult ShowTimeSummary(IWin32Window owner)
 		{
 			try
 			{
 				DateTime now = DateTime.Now;
 				DateTime beginDate = new DateTime(now.Year, now.Month, now.Day, 0, 0, 0).AddDays(-(int)now.DayOfWeek);
-				DateTime endDate = beginDate.AddDays(7);
+				DateTime endDate = beginDate.AddDays(40);
 
-				this.Text = "Week to Date Summary";
-				this.timeDetailGrid.Visible = false;
-				this.projectSummaryGrid.Visible = true;
+				this.Text = "40 Day Summary";
 
-				this.ProjectSummaryBindingSource.DataSource = TimeKeeper.RemoteData.GetProjectSummary(userID, beginDate, endDate);
+				this.ProjectSummaryBindingSource.DataSource = TimeKeeperData.GetProjectSummary(beginDate, endDate);
+
+				var dataSource = new Microsoft.Reporting.WinForms.ReportDataSource
+				{
+					Name = "DataSet1",
+					Value = this.ProjectSummaryBindingSource
+				};
+				this.rvTimeKeeper.LocalReport.DataSources.Clear();
+				this.rvTimeKeeper.LocalReport.DataSources.Add(dataSource);
+				this.rvTimeKeeper.LocalReport.ReportEmbeddedResource = "TimeKeeper.Reports.TimeSummary.rdlc";
+				this.rvTimeKeeper.RefreshReport();
 			}
 			catch (Exception ex)
 			{
-				MessageBox.Show("The Report could not be loaded. Report this please. Here are the details\n\n" + DAL.Utilities.Library.DataTypes.Strings.ExceptionToDetailText(ex), "TimeKeeper - Time Summary Report");
+				MessageBox.Show("The Report could not be loaded. Report this please. Here are the details\n\n" + ex.ToDetailText(), "TimeKeeper - Time Summary Report");
 				return DialogResult.Abort;
 			}
 

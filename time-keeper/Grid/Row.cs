@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Common;
-using DAL.Utilities.Library.DataTypes;
+using Common.Helpers.DataTypes;
 
 namespace TimeKeeper.Grid
 {

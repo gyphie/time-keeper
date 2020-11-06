@@ -5,22 +5,14 @@ namespace Common
 	public class TimeDetail
 	{
 		public TimeDetail() { }
-		public int ProjectID { get; set; }
+		public long ProjectID { get; set; }
+		public string ProjectName { get; set; }
 
-		private string projectName = "";
-		public string ProjectName
-		{
-			get
-			{
-				return string.Format("{0} ({1})", this.projectName, this.ProjectID);
-			}
-			set
-			{
-				this.projectName = value;
-			}
-		}
-		public DateTime EnteredDate { get; set; }
-		public int Minutes { get; set; }
-		public string Comments { get; set; }
+		public string ProjectNameFormatted => $"{this.ProjectName} ({this.ProjectID})";
+		public string UserName { get; set; }
+		public DateTime EntryDate { get; set; }
+		public string EntryDateFormatted => this.EntryDate.FormatReportDate();
+		public long Minutes { get; set; }
+		public string Description { get; set; }
 	}
 }
