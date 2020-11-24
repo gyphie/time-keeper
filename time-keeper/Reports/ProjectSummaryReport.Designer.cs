@@ -135,7 +135,6 @@
 			this.clbProjects.TabIndex = 5;
 			this.clbProjects.Visible = false;
 			this.clbProjects.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.clbProjects_ItemCheck);
-			this.clbProjects.Leave += new System.EventHandler(this.clbProjects_Leave);
 			// 
 			// btnProjects
 			// 

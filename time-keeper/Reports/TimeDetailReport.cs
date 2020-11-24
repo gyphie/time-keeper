@@ -12,13 +12,14 @@ namespace TimeKeeper
 		public TimeDetailReport()
 		{
 			InitializeComponent();
+			this.clbProjects.Tag = this.btnProjects;
 		}
 
 		public DialogResult ShowReport(IWin32Window owner)
 		{
 			DateTime now = DateTime.Now;
 			DateTime endDate = DateTime.Now.Date;
-			DateTime beginDate = endDate.AddDays(Math.Max(0, -(int)endDate.DayOfWeek)); // Move to Monday of this week
+			DateTime beginDate = endDate.AddDays(Math.Min(0, -(int)endDate.DayOfWeek + 1)); // Move to Monday of this week
 
 			this.dtpStartDate.Value = beginDate;
 			this.dtpEndDate.Value = endDate;
@@ -39,8 +40,11 @@ namespace TimeKeeper
 
 		private void btnProjects_Click(object sender, EventArgs e)
 		{
-			this.clbProjects.Visible = true;
-			this.clbProjects.Focus();
+			if (!clbProjects.Visible)
+			{
+				this.clbProjects.Visible = true;
+				this.clbProjects.Focus();
+			}
 		}
 
 		private void btnUpdateReport_Click(object sender, EventArgs e)
@@ -59,11 +63,12 @@ namespace TimeKeeper
 				var data = TimeKeeperData.GetTimeDetail(this.dtpStartDate.Value, this.dtpEndDate.Value.Date.AddDays(1)).Where(a => selectedProjects.Contains(a.ProjectID));
 
 				this.SuspendLayout();
+				this.lvReportData.BeginUpdate();
 				this.lvReportData.Items.Clear();
 
 				foreach (var row in data)
 				{
-					this.lvReportData.Items.Add(new ListViewItem(new string[] { row.EntryDateFormatted, row.ProjectNameFormatted, row.Department, row.Minutes.ToString(), row.Description }));
+					this.lvReportData.Items.Add(new ListViewItem(new string[] { row.EntryDateFormatted, row.ProjectNameFormatted, row.Department, Strings.ReformatLongTime(row.Minutes), row.Description }));
 				}
 			}
 			catch (Exception ex)
@@ -73,6 +78,7 @@ namespace TimeKeeper
 			}
 			finally
 			{
+				this.lvReportData.EndUpdate();
 				this.ResumeLayout();
 			}
 		}
@@ -80,6 +86,7 @@ namespace TimeKeeper
 		private void clbProjects_ItemCheck(object sender, ItemCheckEventArgs e)
 		{
 			this.SuspendLayout();
+			this.clbProjects.BeginUpdate();
 
 			this.clbProjects.ItemCheck -= clbProjects_ItemCheck;
 
@@ -117,9 +124,10 @@ namespace TimeKeeper
 			finally
 			{
 				this.clbProjects.ItemCheck += clbProjects_ItemCheck;
-			}
 
-			this.ResumeLayout();
+				this.clbProjects.EndUpdate();
+				this.ResumeLayout();
+			}
 		}
 
 		protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -138,19 +146,40 @@ namespace TimeKeeper
 			const int WM_LBUTTONDOWN = 0x201;
 			const int WM_LBUTTONUP = 0x202;
 			const int WM_LEFTDBLCLICK = 0x203;
+			const int WM_PARENTNOTIFY = 0x210;
+
+			var handleClick = false;
 
 			switch (m.Msg)
 			{
 				case WM_LBUTTONDOWN:
 					break;
 				case WM_LBUTTONUP:
-					if (!this.clbProjects.ClientRectangle.Contains(this.clbProjects.PointToClient(Cursor.Position)))
+					handleClick = true;
+					break;
+				case WM_PARENTNOTIFY:
+					if ((int)m.WParam == WM_LBUTTONDOWN)
+					{
+						handleClick = true;
+					}
+
+					break;
+				case WM_LEFTDBLCLICK:
+					handleClick = true;
+					break;
+			}
+
+			if (handleClick)
+			{
+				var activationControl = this.clbProjects.Tag as Control;
+				if (!this.clbProjects.ClientRectangle.Contains(this.clbProjects.PointToClient(Cursor.Position)))
+				{
+					// If the activating control was clicked then we let it handle showing/hiding the child control
+					if (activationControl == null || !activationControl.ClientRectangle.Contains(activationControl.PointToClient(Cursor.Position)))
 					{
 						this.clbProjects.Visible = false;
 					}
-					break;
-				case WM_LEFTDBLCLICK:
-					break;
+				}
 			}
 
 			base.WndProc(ref m);

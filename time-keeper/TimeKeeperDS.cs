@@ -80,7 +80,7 @@ namespace TimeKeeper
 			{
 				conn.Open();
 
-				using (var cmd = new SQLiteCommand("SELECT Project.ProjectID, Project.Name, Project.Department, LogSum.TotalMinutes FROM (SELECT ProjectID, SUM(minutes) AS TotalMinutes FROM Log WHERE EntryDate > @BeginDate AND EntryDate <= @EndDate GROUP BY ProjectID) AS LogSum INNER JOIN Project ON LogSum.ProjectID = Project.ProjectID", conn))
+				using (var cmd = new SQLiteCommand("SELECT Project.ProjectID, Project.Name, Project.Department, LogSum.TotalMinutes FROM (SELECT ProjectID, SUM(minutes) AS TotalMinutes FROM Log WHERE EntryDate > @BeginDate AND EntryDate <= @EndDate GROUP BY ProjectID) AS LogSum INNER JOIN Project ON LogSum.ProjectID = Project.ProjectID ORDER BY Project.Department, Project.Name, Project.ProjectID", conn))
 				{
 					cmd.CommandType = CommandType.Text;
 
@@ -116,7 +116,7 @@ namespace TimeKeeper
 			{
 				conn.Open();
 
-				using (var cmd = new SQLiteCommand("SELECT Log.LogID, Project.ProjectID, Project.Name, Project.Department, Log.UserName, Log.Minutes, Log.Description, Log.EntryDate FROM Log INNER JOIN Project ON Log.ProjectID = Project.ProjectID WHERE EntryDate > @BeginDate AND EntryDate <= @EndDate", conn))
+				using (var cmd = new SQLiteCommand("SELECT Log.LogID, Project.ProjectID, Project.Name, Project.Department, Log.UserName, Log.Minutes, Log.Description, Log.EntryDate FROM Log INNER JOIN Project ON Log.ProjectID = Project.ProjectID WHERE EntryDate > @BeginDate AND EntryDate <= @EndDate ORDER BY Log.EntryDate DESC, Project.Department, Project.Name, Project.ProjectID", conn))
 				{
 					cmd.CommandType = CommandType.Text;
 

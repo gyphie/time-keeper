@@ -99,7 +99,7 @@
 			this.lvProjects.MultiSelect = false;
 			this.lvProjects.Name = "lvProjects";
 			this.lvProjects.ShowGroups = false;
-			this.lvProjects.Size = new System.Drawing.Size(504, 232);
+			this.lvProjects.Size = new System.Drawing.Size(503, 232);
 			this.lvProjects.TabIndex = 1;
 			this.lvProjects.UseCompatibleStateImageBehavior = false;
 			this.lvProjects.View = System.Windows.Forms.View.Details;
@@ -113,7 +113,7 @@
 			// chDepartment
 			// 
 			this.chDepartment.Text = "Department";
-			this.chDepartment.Width = 243;
+			this.chDepartment.Width = 217;
 			// 
 			// chActive
 			// 

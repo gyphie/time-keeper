@@ -83,24 +83,13 @@ namespace TimeKeeper.Grid
 		public void SetTime(int minutes, bool dirty)
 		{
 			this.TimeBox.Tag = true;	// prevent TextChanged event
-			this.TimeBox.Text = Row.ReformatTime(minutes);
+			this.TimeBox.Text = Strings.ReformatTime(minutes);
 			this.timeIsDirty = dirty;
 		}
 
 		public bool TimeIsDirty
 		{
 			get { return this.timeIsDirty; }
-		}
-
-		public static string ReformatTime(int minutes)
-		{
-			string format = minutes > 0 ? "{0}:{1:00}" : "";
-			return String.Format(format, minutes / 60, minutes % 60);
-		}
-		public static string ReformatLongTime(int minutes)
-		{
-			string format = minutes % 60 == 0 && minutes > 0 ? "{0} h" : (minutes > 60 ? "{0} h {1} m" : "{1} m");
-			return String.Format(format, minutes / 60, minutes % 60);
 		}
 
 		/// <summary>

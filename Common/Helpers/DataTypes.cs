@@ -21,8 +21,22 @@ namespace Common.Helpers.DataTypes
 
 
 
-	public static class StringExtension
+	public static class Strings
 	{
+		public static string ReformatTime(int minutes)
+		{
+			string format = minutes > 0 ? "{0}:{1:00}" : "";
+			return String.Format(format, minutes / 60, minutes % 60);
+		}
+		public static string ReformatLongTime(long minutes)
+		{
+			var isNeg = minutes < 0;
+			minutes = Math.Abs(minutes);
+			string format = (isNeg ? "-" : "") + (minutes % 60 == 0 && minutes > 0 ? "{0} h" : (minutes > 60 ? "{0} h {1} m" : "{1} m"));
+			return String.Format(format, minutes / 60, minutes % 60);
+		}
+
+
 		public static bool IsEmpty(this string value, bool orWhiteSpace = true)
 		{
 			return orWhiteSpace ? string.IsNullOrWhiteSpace(value) : string.IsNullOrEmpty(value);

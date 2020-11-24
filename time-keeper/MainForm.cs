@@ -260,8 +260,11 @@ namespace TimeKeeper
 			if (show)
 			{
 				this.SetupGrid();
+				this.RefreshGrid();
 				this.UpdateTimeLabel();
 
+				this.Opacity = 0;	// A lot of these properties cause the form to be displayed when set (not just Show()). So to reduce flickering set the form to transparent while we change the settings.
+				
 				this.MoveToScreen(false);
 				this.ShowInTaskbar = true;
 				this.WindowState = FormWindowState.Normal;
@@ -271,6 +274,8 @@ namespace TimeKeeper
 				this.timOpened.Start();
 				this.ShowTop(activate);
 				this.ShowForm(activate);
+
+				this.Opacity = 1;
 			}
 			else
 			{
@@ -437,9 +442,9 @@ namespace TimeKeeper
 				}
 			}
 
-			string part1 = Row.ReformatLongTime(minutesRecorded) + " of ";
-			string part2 = Row.ReformatLongTime(mins);
-			string part3 = (mins - minutesRecorded != 0) ? " (" + (mins - minutesRecorded) + ")" : "";
+			string part1 = Strings.ReformatLongTime(minutesRecorded) + " of ";
+			string part2 = Strings.ReformatLongTime(mins);
+			string part3 = (mins - minutesRecorded != 0) ? " (" + Strings.ReformatLongTime(mins - minutesRecorded) + ")" : "";
 			this.dispMinutes.Text = part1 + part2 + part3;
 
 			// Check if there is only a single project entry, if so set it's time
@@ -486,14 +491,12 @@ namespace TimeKeeper
 					row.DescriptionBox.Height = row.ProjectBox.Height;
 				}
 			}
-
-			this.RefreshGrid();
 		}
 
 
 		private void RefreshGrid()
 		{
-			SU.SuspendUpdate.Suspend(this);	// Prevent form from repainting while we update the projects
+			SU.SuspendUpdate.Suspend(this); // Prevent form from repainting while we update the projects
 
 			try
 			{
@@ -504,16 +507,16 @@ namespace TimeKeeper
 				{
 					row.Refresh(projects);
 				}
+
+				// Check if there is only a single project entry, if so set it's time
+				if (!this.rows.Any(r => r.TimeIsDirty) && this.rows.Count(r => r.ProjectBox.SelectedItem != null) == 1)
+				{
+					this.rows.Single(r => r.ProjectBox.SelectedItem != null).SetTime(this.MinutesSinceLastSave, false);
+				}
 			}
 			finally
 			{
-				SU.SuspendUpdate.Resume(this);	// Ok...we can paint again
-			}
-
-			// Check if there is only a single project entry, if so set it's time
-			if (!this.rows.Any(r => r.TimeIsDirty) && this.rows.Count(r => r.ProjectBox.SelectedItem != null) == 1)
-			{
-				this.rows.Single(r => r.ProjectBox.SelectedItem != null).SetTime(this.MinutesSinceLastSave, false);
+				SU.SuspendUpdate.Resume(this);  // Ok...we can paint again
 			}
 		}
 
@@ -532,7 +535,7 @@ namespace TimeKeeper
 		void TimeBox_Leave(object sender, EventArgs e)
 		{
 			TextBox me = sender as TextBox;
-			me.Text = Row.ReformatTime(Row.GetTime(me.Text));
+			me.Text = Strings.ReformatTime(Row.GetTime(me.Text));
 		}
 
 		void Row_KeyUp(object sender, KeyEventArgs e)
@@ -584,6 +587,7 @@ namespace TimeKeeper
 		{
 			var errorMessages = new List<string>();
 			var hasEnteredTimes = false;
+			var saveTime = DateTime.Now;
 
 			foreach (Row row in this.rows)
 			{
@@ -593,7 +597,7 @@ namespace TimeKeeper
 				{
 					try
 					{
-						TimeKeeperData.SaveLog(project.ProjectID, Settings.Default.userName, minutes, row.DescriptionBox.Text, DateTime.Now);
+						TimeKeeperData.SaveLog(project.ProjectID, Settings.Default.userName, minutes, row.DescriptionBox.Text, saveTime);
 						row.SetTime(0, false);
 						hasEnteredTimes = true;
 					}
@@ -619,7 +623,7 @@ namespace TimeKeeper
 
 			if (hasEnteredTimes)
 			{
-				this.timeSinceLastSave = DateTime.Now;
+				this.timeSinceLastSave = saveTime;
 			}
 
 		}
