@@ -18,6 +18,7 @@ namespace TimeKeeper
 			{
 				conn.Open();
 
+				// note - by ommitted LogID SQLite will generate the value
 				using (var cmd = new SQLiteCommand("INSERT INTO Log(ProjectID, UserName, Minutes, Description, EntryDate) VALUES(@ProjectID, @UserName, @Minutes, @Description, @EntryDatetime)", conn))
 				{
 					cmd.CommandType = CommandType.Text;
@@ -33,7 +34,7 @@ namespace TimeKeeper
 			}
 		}
 
-		public static void SaveProject(long projectID, string projectName, string department, DateTime beginDate, DateTime endDate)
+		public static void SaveProject(long projectID, string projectName, string department, DateTime createDate, bool isActive)
 		{
 			using (var conn = new SQLiteConnection(TimeKeeperData.ConnectionString))
 			{
@@ -41,29 +42,28 @@ namespace TimeKeeper
 
 				if (projectID <= 0)
 				{
-					using (var cmd = new SQLiteCommand("INSERT INTO Project(Name, Department, BeginDate, EndDate) VALUES(@Name, @Department, @BeginDate, @EndDate)", conn))
+					using (var cmd = new SQLiteCommand("INSERT INTO Project(Name, Department, CreateDate, IsActive) VALUES(@Name, @Department, @CreateDate, @IsActive)", conn))
 					{
 						cmd.CommandType = CommandType.Text;
 
 						cmd.Parameters.AddWithValue("@Name", projectName);
 						cmd.Parameters.AddWithValue("@Department", department);
-						cmd.Parameters.AddWithValue("@BeginDate", beginDate.Ticks);
-						cmd.Parameters.AddWithValue("@EndDate", endDate.Ticks);
+						cmd.Parameters.AddWithValue("@CreateDate", createDate.Ticks);
+						cmd.Parameters.AddWithValue("@IsActive", isActive);
 
 						cmd.ExecuteNonQuery();
 					}
 				}
 				else
 				{
-					using (var cmd = new SQLiteCommand("UPDATE Project SET Name = @Name, Department = @Department, BeginDate = @BeginDate, EndDate = @EndDate ) WHERE ProjectID = @ProjectID", conn))
+					using (var cmd = new SQLiteCommand("UPDATE Project SET Name = @Name, Department = @Department, IsActive = @IsActive WHERE ProjectID = @ProjectID", conn))
 					{
 						cmd.CommandType = CommandType.Text;
 
 						cmd.Parameters.AddWithValue("@ProjectID", projectID);
 						cmd.Parameters.AddWithValue("@Name", projectName);
 						cmd.Parameters.AddWithValue("@Department", department);
-						cmd.Parameters.AddWithValue("@BeginDate", beginDate.Ticks);
-						cmd.Parameters.AddWithValue("@EndDate", endDate.Ticks);
+						cmd.Parameters.AddWithValue("@IsActive", isActive);
 
 						cmd.ExecuteNonQuery();
 					}
@@ -80,7 +80,7 @@ namespace TimeKeeper
 			{
 				conn.Open();
 
-				using (var cmd = new SQLiteCommand("SELECT Project.ProjectID, Project.Name, Project.BeginDate, Project.EndDate, LogSum.TotalMinutes FROM (SELECT ProjectID, SUM(minutes) AS TotalMinutes FROM Log WHERE EntryDate > @BeginDate AND EntryDate <= @EndDate GROUP BY ProjectID) AS LogSum INNER JOIN Project ON LogSum.ProjectID = Project.ProjectID", conn))
+				using (var cmd = new SQLiteCommand("SELECT Project.ProjectID, Project.Name, Project.Department, LogSum.TotalMinutes FROM (SELECT ProjectID, SUM(minutes) AS TotalMinutes FROM Log WHERE EntryDate > @BeginDate AND EntryDate <= @EndDate GROUP BY ProjectID) AS LogSum INNER JOIN Project ON LogSum.ProjectID = Project.ProjectID", conn))
 				{
 					cmd.CommandType = CommandType.Text;
 
@@ -97,10 +97,8 @@ namespace TimeKeeper
 							{
 								ProjectID = reader.GetInt64(idx++),
 								ProjectName = reader.GetString(idx++),
-								BeginDate = new DateTime(reader.GetInt64(idx++)),
-								EndDate = new DateTime(reader.GetInt64(idx++)),
-								TotalMinutes = reader.GetInt64(idx++)
-						
+								Department = reader.GetString(idx++),
+								TotalMinutes = reader.GetInt64(idx++)						
 							});
 						}
 					}
@@ -118,7 +116,7 @@ namespace TimeKeeper
 			{
 				conn.Open();
 
-				using (var cmd = new SQLiteCommand("SELECT Project.ProjectID, Project.Name, Log.UserName, Log.Minutes, Log.Description, Log.EntryDate FROM Log INNER JOIN Project ON Log.ProjectID = Project.ProjectID WHERE EntryDate > @BeginDate AND EntryDate <= @EndDate", conn))
+				using (var cmd = new SQLiteCommand("SELECT Log.LogID, Project.ProjectID, Project.Name, Project.Department, Log.UserName, Log.Minutes, Log.Description, Log.EntryDate FROM Log INNER JOIN Project ON Log.ProjectID = Project.ProjectID WHERE EntryDate > @BeginDate AND EntryDate <= @EndDate", conn))
 				{
 					cmd.CommandType = CommandType.Text;
 
@@ -132,8 +130,10 @@ namespace TimeKeeper
 						{
 							int idx = 0;
 							logs.Add(new TimeDetail() {
+								LogID = reader.GetInt64(idx++),
 								ProjectID = reader.GetInt64(idx++),
 								ProjectName = reader.GetString(idx++),
+								Department = reader.GetString(idx++),
 								UserName = reader.GetString(idx++),
 								Minutes = reader.GetInt64(idx++),
 								Description = reader.GetString(idx++),
@@ -155,7 +155,7 @@ namespace TimeKeeper
 			{
 				conn.Open();
 
-				using (var cmd = new SQLiteCommand("SELECT ProjectID, Name, Department, BeginDate, EndDate FROM Project", conn))
+				using (var cmd = new SQLiteCommand("SELECT ProjectID, Name, Department, CreateDate, IsActive FROM Project", conn))
 				{
 					cmd.CommandType = CommandType.Text;
 
@@ -168,8 +168,8 @@ namespace TimeKeeper
 								ProjectID = reader.GetInt64(idx++),
 								Name = reader.GetString(idx++),
 								Department = reader.GetString(idx++),
-								BeginDate = new DateTime(reader.GetInt64(idx++)),
-								EndDate = new DateTime(reader.GetInt64(idx++))
+								DateCreated = new DateTime(reader.GetInt64(idx++)),
+								IsActive = reader.GetBoolean(idx++)
 							});
 						}
 					}

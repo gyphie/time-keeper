@@ -61,7 +61,7 @@ namespace TimeKeeper.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("LocalStore.1.db")]
+        [global::System.Configuration.DefaultSettingValueAttribute("LocalStore.1.0.1.db")]
         public string LocalStoreName {
             get {
                 return ((string)(this["LocalStoreName"]));
@@ -70,7 +70,7 @@ namespace TimeKeeper.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1.0.0.0")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1.0.1.0")]
         public string SettingsVersion {
             get {
                 return ((string)(this["SettingsVersion"]));

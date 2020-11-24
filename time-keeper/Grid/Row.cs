@@ -18,7 +18,7 @@ namespace TimeKeeper.Grid
 		public Row(GroupedComboBox projectBox, TextBox timeBox, TextBox descriptionBox)
 		{
 			this.ProjectBox = projectBox;
-			this.ProjectBox.DisplayMember = "Name";
+			this.ProjectBox.DisplayMember = "DisplayName";
 			this.ProjectBox.ValueMember = "ProjectID";
 			this.ProjectBox.GroupMember = "Department";
 			this.ProjectBox.AutoCompleteMode = AutoCompleteMode.Append;

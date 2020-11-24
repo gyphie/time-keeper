@@ -61,24 +61,6 @@
     <Reference Include="DropDownControls">
       <HintPath>Dependencies\DropDownControls\DropDownControls.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.ReportViewer.Common, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1404.0\lib\net40\Microsoft.ReportViewer.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.ReportViewer.DataVisualization, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1404.0\lib\net40\Microsoft.ReportViewer.DataVisualization.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.ReportViewer.Design, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1404.0\lib\net40\Microsoft.ReportViewer.Design.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.ReportViewer.ProcessingObjectModel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1404.0\lib\net40\Microsoft.ReportViewer.ProcessingObjectModel.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.ReportViewer.WinForms, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1404.0\lib\net40\Microsoft.ReportViewer.WinForms.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SqlServer.Types, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.Types.14.0.314.76\lib\net40\Microsoft.SqlServer.Types.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -105,49 +87,62 @@
       <DependentUpon>AboutBox.cs</DependentUpon>
     </Compile>
     <Compile Include="ColorAnimation.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Grid\Row.cs" />
-    <Compile Include="NewProject.cs">
+    <Compile Include="ManageProjects.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="NewProject.Designer.cs">
-      <DependentUpon>NewProject.cs</DependentUpon>
+    <Compile Include="ManageProjects.Designer.cs">
+      <DependentUpon>ManageProjects.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddEditProject.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddEditProject.Designer.cs">
+      <DependentUpon>AddEditProject.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Reports\TimeReport.cs">
+    <Compile Include="Reports\TimeDetailReport.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Reports\TimeReport.Designer.cs">
-      <DependentUpon>TimeReport.cs</DependentUpon>
+    <Compile Include="Reports\TimeDetailReport.Designer.cs">
+      <DependentUpon>TimeDetailReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\ProjectSummaryReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Reports\ProjectSummaryReport.Designer.cs">
+      <DependentUpon>ProjectSummaryReport.cs</DependentUpon>
     </Compile>
     <Compile Include="TimeKeeperDS.cs" />
     <EmbeddedResource Include="AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="NewProject.resx">
-      <DependentUpon>NewProject.cs</DependentUpon>
+    <EmbeddedResource Include="ManageProjects.resx">
+      <DependentUpon>ManageProjects.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Reports\TimeDetail.rdlc" />
-    <EmbeddedResource Include="Reports\TimeReport.resx">
-      <DependentUpon>TimeReport.cs</DependentUpon>
+    <EmbeddedResource Include="AddEditProject.resx">
+      <DependentUpon>AddEditProject.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Reports\TimeSummary.rdlc" />
+    <EmbeddedResource Include="Reports\TimeDetailReport.resx">
+      <DependentUpon>TimeDetailReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ProjectSummaryReport.resx">
+      <DependentUpon>ProjectSummaryReport.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="app.config" />
-    <None Include="LocalStore.1.db">
+    <None Include="LocalStore.1.0.1.db">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="packages.config" />
-    <None Include="Properties\DataSources\Common.ProjectSummary.datasource" />
-    <None Include="Properties\DataSources\Common.TimeDetail.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

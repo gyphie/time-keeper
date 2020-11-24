@@ -13,10 +13,7 @@ namespace Common
 		public long ProjectID { get; set; }
 		public string ProjectName { get; set; }
 		public string ProjectNameFormatted => $"{this.ProjectName} ({this.ProjectID})";
-		public DateTime BeginDate { get; set; }
-		public string BeginDateFormatted => this.BeginDate.FormatReportDate();
-		public DateTime EndDate { get; set; }
-		public string EndDateFormatted => this.EndDate.FormatReportDate();
+		public string Department { get; set; }
 		public long TotalMinutes { get; set; }
 
 

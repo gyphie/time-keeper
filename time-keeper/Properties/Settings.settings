@@ -12,10 +12,10 @@
       <Value Profile="(Default)">Red</Value>
     </Setting>
     <Setting Name="LocalStoreName" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">LocalStore.1.db</Value>
+      <Value Profile="(Default)">LocalStore.1.0.1.db</Value>
     </Setting>
     <Setting Name="SettingsVersion" Type="System.String" Scope="User">
-      <Value Profile="(Default)">1.0.0.0</Value>
+      <Value Profile="(Default)">1.0.1.0</Value>
     </Setting>
     <Setting Name="userName" Type="System.String" Scope="User">
       <Value Profile="(Default)" />

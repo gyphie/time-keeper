@@ -43,8 +43,9 @@ namespace TimeKeeper
 		private DateTime delayUntil = DateTime.MinValue;
 
 		private KH.KeyboardHook hotKeyHook = new KH.KeyboardHook();
-		private TimeReport timeReportForm = new TimeReport();
-		private NewProject newProjectForm = new NewProject();
+		private TimeDetailReport detailReportForm = new TimeDetailReport();
+		private ProjectSummaryReport projectSummaryReportForm = new ProjectSummaryReport();
+		private ManageProjects manageProjectsForm = new ManageProjects();
 		private Size originalFormSize;
 
 		#region Event Handlers
@@ -727,19 +728,14 @@ namespace TimeKeeper
 			this.ClearGrid(true, true, true);
 
 		}
-
-		private void weekToDateDetailToolStripMenuItem_Click(object sender, EventArgs e)
+		private void summaryReportToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			this.ShowNotTop();
-			this.timeReportForm.ShowTimeDetail(this);
-			this.ShowTop(false);
+			this.projectSummaryReportForm.ShowReport(this);
 		}
 
-		private void weekToDateSummaryToolStripMenuItem_Click(object sender, EventArgs e)
+		private void detailReportToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			this.ShowNotTop();
-			this.timeReportForm.ShowTimeSummary(this);
-			this.ShowTop(false);
+			this.detailReportForm.ShowReport(this);
 		}
 
 		private void nameToolStripMenuItem_Click(object sender, EventArgs e)
@@ -766,7 +762,7 @@ namespace TimeKeeper
 			this.ShowNotTop();
 
 			// Show prompt dialog
-			if (this.newProjectForm.LoadAndShowDialog(this)== DialogResult.OK)
+			if (this.manageProjectsForm.LoadAndShowDialog(this) == DialogResult.OK)
 			{
 				this.RefreshGrid();
 			}

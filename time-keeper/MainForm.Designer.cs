@@ -48,13 +48,13 @@
 			this.dispMinutes = new System.Windows.Forms.Label();
 			this.msMain = new System.Windows.Forms.MenuStrip();
 			this.timeKeeperToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.newProjectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.projectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.reportsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.detailReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.summaryReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.exitToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.reportsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.weekToDateDetailToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.weekToDateSummaryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.resetTimeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.pauseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.minutes15ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -252,67 +252,67 @@
 			// timeKeeperToolStripMenuItem
 			// 
 			this.timeKeeperToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.newProjectToolStripMenuItem,
+            this.projectToolStripMenuItem,
+            this.reportsToolStripMenuItem,
             this.aboutToolStripMenuItem,
             this.exitToolStripMenuItem1});
 			this.timeKeeperToolStripMenuItem.Name = "timeKeeperToolStripMenuItem";
 			this.timeKeeperToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
 			this.timeKeeperToolStripMenuItem.Text = "&File";
 			// 
-			// newProjectToolStripMenuItem
+			// projectToolStripMenuItem
 			// 
-			this.newProjectToolStripMenuItem.Name = "newProjectToolStripMenuItem";
-			this.newProjectToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
-			this.newProjectToolStripMenuItem.Text = "&New Project...";
-			this.newProjectToolStripMenuItem.Click += new System.EventHandler(this.newProjectToolStripMenuItem_Click);
+			this.projectToolStripMenuItem.Name = "projectToolStripMenuItem";
+			this.projectToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.projectToolStripMenuItem.Text = "&Projects...";
+			this.projectToolStripMenuItem.Click += new System.EventHandler(this.newProjectToolStripMenuItem_Click);
+			// 
+			// reportsToolStripMenuItem
+			// 
+			this.reportsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.detailReportToolStripMenuItem,
+            this.summaryReportToolStripMenuItem});
+			this.reportsToolStripMenuItem.Name = "reportsToolStripMenuItem";
+			this.reportsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.reportsToolStripMenuItem.Text = "Reports";
+			// 
+			// detailReportToolStripMenuItem
+			// 
+			this.detailReportToolStripMenuItem.Name = "detailReportToolStripMenuItem";
+			this.detailReportToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.detailReportToolStripMenuItem.Text = "Log Detail...";
+			this.detailReportToolStripMenuItem.Click += new System.EventHandler(this.detailReportToolStripMenuItem_Click);
+			// 
+			// summaryReportToolStripMenuItem
+			// 
+			this.summaryReportToolStripMenuItem.Name = "summaryReportToolStripMenuItem";
+			this.summaryReportToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.summaryReportToolStripMenuItem.Text = "Project Summary...";
+			this.summaryReportToolStripMenuItem.Click += new System.EventHandler(this.summaryReportToolStripMenuItem_Click);
 			// 
 			// aboutToolStripMenuItem
 			// 
 			this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-			this.aboutToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+			this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.aboutToolStripMenuItem.Text = "&About...";
 			this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
 			// 
 			// exitToolStripMenuItem1
 			// 
 			this.exitToolStripMenuItem1.Name = "exitToolStripMenuItem1";
-			this.exitToolStripMenuItem1.Size = new System.Drawing.Size(147, 22);
+			this.exitToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
 			this.exitToolStripMenuItem1.Text = "E&xit";
 			this.exitToolStripMenuItem1.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
 			// 
 			// toolsToolStripMenuItem
 			// 
 			this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.reportsToolStripMenuItem,
             this.resetTimeToolStripMenuItem,
             this.pauseToolStripMenuItem,
             this.clearToolStripMenuItem});
 			this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-			this.toolsToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
+			this.toolsToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
 			this.toolsToolStripMenuItem.Text = "&Tools";
-			// 
-			// reportsToolStripMenuItem
-			// 
-			this.reportsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.weekToDateDetailToolStripMenuItem,
-            this.weekToDateSummaryToolStripMenuItem});
-			this.reportsToolStripMenuItem.Name = "reportsToolStripMenuItem";
-			this.reportsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-			this.reportsToolStripMenuItem.Text = "Reports";
-			// 
-			// weekToDateDetailToolStripMenuItem
-			// 
-			this.weekToDateDetailToolStripMenuItem.Name = "weekToDateDetailToolStripMenuItem";
-			this.weekToDateDetailToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-			this.weekToDateDetailToolStripMenuItem.Text = "Log Detail...";
-			this.weekToDateDetailToolStripMenuItem.Click += new System.EventHandler(this.weekToDateDetailToolStripMenuItem_Click);
-			// 
-			// weekToDateSummaryToolStripMenuItem
-			// 
-			this.weekToDateSummaryToolStripMenuItem.Name = "weekToDateSummaryToolStripMenuItem";
-			this.weekToDateSummaryToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-			this.weekToDateSummaryToolStripMenuItem.Text = "Project Summary...";
-			this.weekToDateSummaryToolStripMenuItem.Click += new System.EventHandler(this.weekToDateSummaryToolStripMenuItem_Click);
 			// 
 			// resetTimeToolStripMenuItem
 			// 
@@ -403,7 +403,7 @@
             this.prompt30ToolStripMenuItem,
             this.prompt60ToolStripMenuItem});
 			this.prompToolStripMenuItem.Name = "prompToolStripMenuItem";
-			this.prompToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+			this.prompToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
 			this.prompToolStripMenuItem.Text = "&Prompt Every";
 			// 
 			// prompt5ToolStripMenuItem
@@ -449,7 +449,7 @@
             this.trans50StripMenuItem,
             this.trans75StripMenuItem});
 			this.windowTransparencyToolStripMenuItem.Name = "windowTransparencyToolStripMenuItem";
-			this.windowTransparencyToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+			this.windowTransparencyToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
 			this.windowTransparencyToolStripMenuItem.Text = "&Window Transparency";
 			// 
 			// trans0StripMenuItem
@@ -483,14 +483,14 @@
 			// buttonColorToolStripMenuItem
 			// 
 			this.buttonColorToolStripMenuItem.Name = "buttonColorToolStripMenuItem";
-			this.buttonColorToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+			this.buttonColorToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
 			this.buttonColorToolStripMenuItem.Text = "&Button Color...";
 			this.buttonColorToolStripMenuItem.Click += new System.EventHandler(this.btnColor_Click);
 			// 
 			// nameToolStripMenuItem
 			// 
 			this.nameToolStripMenuItem.Name = "nameToolStripMenuItem";
-			this.nameToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+			this.nameToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
 			this.nameToolStripMenuItem.Text = "Name...";
 			this.nameToolStripMenuItem.Click += new System.EventHandler(this.nameToolStripMenuItem_Click);
 			// 
@@ -829,8 +829,8 @@
 		private System.Windows.Forms.LinkLabel llDiscardTime;
 		private System.Windows.Forms.ToolStripMenuItem buttonColorToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem reportsToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem weekToDateDetailToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem weekToDateSummaryToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem detailReportToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem summaryReportToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem nameToolStripMenuItem;
 		private System.Windows.Forms.TextBox timeBox7;
 		private System.Windows.Forms.TextBox timeBox6;
@@ -853,7 +853,7 @@
 		private GroupedComboBox projectBox3;
 		private GroupedComboBox projectBox2;
 		private GroupedComboBox projectBox1;
-		private System.Windows.Forms.ToolStripMenuItem newProjectToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem projectToolStripMenuItem;
 	}
 }
 

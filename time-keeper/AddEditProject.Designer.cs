@@ -1,6 +1,6 @@
 ﻿namespace TimeKeeper
 {
-	partial class NewProject
+	partial class AddEditProject
 	{
 		/// <summary>
 		/// Required designer variable.
@@ -32,22 +32,19 @@
 			this.btnSave = new System.Windows.Forms.Button();
 			this.lblProjectName = new System.Windows.Forms.Label();
 			this.lblDepartment = new System.Windows.Forms.Label();
-			this.lblStartDate = new System.Windows.Forms.Label();
-			this.lblEndDate = new System.Windows.Forms.Label();
 			this.txtProjectName = new System.Windows.Forms.TextBox();
-			this.dtpStartDate = new System.Windows.Forms.DateTimePicker();
-			this.dtpEndDate = new System.Windows.Forms.DateTimePicker();
 			this.cmboDepartment = new System.Windows.Forms.ComboBox();
+			this.cbIsActive = new System.Windows.Forms.CheckBox();
 			this.SuspendLayout();
 			// 
 			// btnCancel
 			// 
 			this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-			this.btnCancel.Location = new System.Drawing.Point(527, 65);
+			this.btnCancel.Location = new System.Drawing.Point(196, 131);
 			this.btnCancel.Name = "btnCancel";
 			this.btnCancel.Size = new System.Drawing.Size(75, 23);
-			this.btnCancel.TabIndex = 9;
+			this.btnCancel.TabIndex = 6;
 			this.btnCancel.Text = "&Cancel";
 			this.btnCancel.UseVisualStyleBackColor = true;
 			this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
@@ -55,10 +52,10 @@
 			// btnSave
 			// 
 			this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnSave.Location = new System.Drawing.Point(446, 65);
+			this.btnSave.Location = new System.Drawing.Point(115, 131);
 			this.btnSave.Name = "btnSave";
 			this.btnSave.Size = new System.Drawing.Size(75, 23);
-			this.btnSave.TabIndex = 8;
+			this.btnSave.TabIndex = 5;
 			this.btnSave.Text = "&Save";
 			this.btnSave.UseVisualStyleBackColor = true;
 			this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
@@ -75,86 +72,61 @@
 			// lblDepartment
 			// 
 			this.lblDepartment.AutoSize = true;
-			this.lblDepartment.Location = new System.Drawing.Point(203, 8);
+			this.lblDepartment.Location = new System.Drawing.Point(9, 48);
 			this.lblDepartment.Name = "lblDepartment";
 			this.lblDepartment.Size = new System.Drawing.Size(62, 13);
 			this.lblDepartment.TabIndex = 2;
 			this.lblDepartment.Text = "&Department";
 			// 
-			// lblStartDate
-			// 
-			this.lblStartDate.AutoSize = true;
-			this.lblStartDate.Location = new System.Drawing.Point(363, 8);
-			this.lblStartDate.Name = "lblStartDate";
-			this.lblStartDate.Size = new System.Drawing.Size(55, 13);
-			this.lblStartDate.TabIndex = 4;
-			this.lblStartDate.Text = "Start &Date";
-			// 
-			// lblEndDate
-			// 
-			this.lblEndDate.AutoSize = true;
-			this.lblEndDate.Location = new System.Drawing.Point(484, 8);
-			this.lblEndDate.Name = "lblEndDate";
-			this.lblEndDate.Size = new System.Drawing.Size(52, 13);
-			this.lblEndDate.TabIndex = 6;
-			this.lblEndDate.Text = "&End Date";
-			// 
 			// txtProjectName
 			// 
+			this.txtProjectName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtProjectName.Location = new System.Drawing.Point(12, 25);
 			this.txtProjectName.Name = "txtProjectName";
-			this.txtProjectName.Size = new System.Drawing.Size(188, 20);
+			this.txtProjectName.Size = new System.Drawing.Size(262, 20);
 			this.txtProjectName.TabIndex = 1;
-			// 
-			// dtpStartDate
-			// 
-			this.dtpStartDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-			this.dtpStartDate.Location = new System.Drawing.Point(366, 25);
-			this.dtpStartDate.Name = "dtpStartDate";
-			this.dtpStartDate.Size = new System.Drawing.Size(115, 20);
-			this.dtpStartDate.TabIndex = 5;
-			this.dtpStartDate.ValueChanged += new System.EventHandler(this.dtpStartDate_ValueChanged);
-			// 
-			// dtpEndDate
-			// 
-			this.dtpEndDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-			this.dtpEndDate.Location = new System.Drawing.Point(487, 25);
-			this.dtpEndDate.Name = "dtpEndDate";
-			this.dtpEndDate.Size = new System.Drawing.Size(115, 20);
-			this.dtpEndDate.TabIndex = 7;
 			// 
 			// cmboDepartment
 			// 
+			this.cmboDepartment.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.cmboDepartment.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
 			this.cmboDepartment.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
 			this.cmboDepartment.FormattingEnabled = true;
-			this.cmboDepartment.Location = new System.Drawing.Point(206, 25);
+			this.cmboDepartment.Location = new System.Drawing.Point(12, 64);
 			this.cmboDepartment.Name = "cmboDepartment";
-			this.cmboDepartment.Size = new System.Drawing.Size(154, 21);
+			this.cmboDepartment.Size = new System.Drawing.Size(262, 21);
 			this.cmboDepartment.TabIndex = 3;
 			// 
-			// NewProject
+			// cbIsActive
+			// 
+			this.cbIsActive.AutoSize = true;
+			this.cbIsActive.Location = new System.Drawing.Point(12, 91);
+			this.cbIsActive.Name = "cbIsActive";
+			this.cbIsActive.Size = new System.Drawing.Size(56, 17);
+			this.cbIsActive.TabIndex = 4;
+			this.cbIsActive.Text = "Active";
+			this.cbIsActive.UseVisualStyleBackColor = true;
+			// 
+			// AddEditProject
 			// 
 			this.AcceptButton = this.btnSave;
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.CancelButton = this.btnCancel;
-			this.ClientSize = new System.Drawing.Size(615, 95);
+			this.ClientSize = new System.Drawing.Size(284, 161);
+			this.Controls.Add(this.cbIsActive);
 			this.Controls.Add(this.cmboDepartment);
-			this.Controls.Add(this.dtpEndDate);
-			this.Controls.Add(this.dtpStartDate);
 			this.Controls.Add(this.txtProjectName);
-			this.Controls.Add(this.lblEndDate);
-			this.Controls.Add(this.lblStartDate);
 			this.Controls.Add(this.lblDepartment);
 			this.Controls.Add(this.lblProjectName);
 			this.Controls.Add(this.btnSave);
 			this.Controls.Add(this.btnCancel);
-			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
-			this.MinimumSize = new System.Drawing.Size(631, 133);
-			this.Name = "NewProject";
+			this.MinimumSize = new System.Drawing.Size(300, 200);
+			this.Name = "AddEditProject";
 			this.ShowIcon = false;
 			this.ShowInTaskbar = false;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
@@ -170,11 +142,8 @@
 		private System.Windows.Forms.Button btnSave;
 		private System.Windows.Forms.Label lblProjectName;
 		private System.Windows.Forms.Label lblDepartment;
-		private System.Windows.Forms.Label lblStartDate;
-		private System.Windows.Forms.Label lblEndDate;
 		private System.Windows.Forms.TextBox txtProjectName;
-		private System.Windows.Forms.DateTimePicker dtpStartDate;
-		private System.Windows.Forms.DateTimePicker dtpEndDate;
 		private System.Windows.Forms.ComboBox cmboDepartment;
+		private System.Windows.Forms.CheckBox cbIsActive;
 	}
 }
