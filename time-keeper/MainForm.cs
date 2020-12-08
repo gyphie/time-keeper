@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
@@ -22,7 +23,7 @@ namespace TimeKeeper
 
 			try
 			{
-				this.hotKeyHook.RegisterHotKey(KH.ModifierKeys.Win, Keys.Q);
+				this.hotKeyHook.RegisterHotKey(KH.ModifierKeys.Win, Keys.Z);
 			}
 			catch
 			{
@@ -132,13 +133,20 @@ namespace TimeKeeper
 				this.originalBackColor = this.btnSave.BackColor;
 				this.timFlasher.Start();
 
-				string localDataStorePath = System.IO.Path.Combine(Application.LocalUserAppDataPath, setting.LocalStoreName);
+				// We don't want the DB to be stored in versioned folders, so we will store it in the parent directory to be shared amoung versions.
+				// If the DB changes we will update the LocalStoreName and version the DB separately from the application.
+				string localDataStorePath = Path.Combine(Directory.GetParent(Application.LocalUserAppDataPath).FullName, setting.LocalStoreName);
+
+#if DEBUG
+				localDataStorePath = Path.Combine(Directory.GetParent(Application.LocalUserAppDataPath).FullName, "debug", setting.LocalStoreName);
+#endif
+
 				TimeKeeperData.ConnectionString = "Data Source=" + localDataStorePath;
 
-				if (!System.IO.File.Exists(localDataStorePath))
+				if (!File.Exists(localDataStorePath))
 				{
-					System.IO.Directory.CreateDirectory(System.IO.Path.GetDirectoryName(localDataStorePath));
-					System.IO.File.Copy(System.IO.Path.Combine(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location), setting.LocalStoreName), localDataStorePath);
+					Directory.CreateDirectory(Path.GetDirectoryName(localDataStorePath));
+					File.Copy(Path.Combine(Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location), setting.LocalStoreName), localDataStorePath);
 				}
 
 				this.dispName.Text = setting.userName.IsEmpty() ? "Unknown" : setting.userName;
@@ -248,9 +256,9 @@ namespace TimeKeeper
 			}
 		}
 
-		#endregion
+#endregion
 
-		#region Methods
+#region Methods
 		/// <summary>
 		/// Prep and show the form (or hide it)
 		/// </summary>
@@ -344,7 +352,7 @@ namespace TimeKeeper
 				this.Location = new Point(currentScreen.Bounds.Left + (currentScreen.Bounds.Width / 2) - (this.Width / 2), currentScreen.Bounds.Top + (currentScreen.Bounds.Height / 2) - (this.Height / 2));
 			}
 		}
-		#endregion
+#endregion
 
 		/// <summary>
 		/// Focus on the Project Combo box when the window is switched to.
@@ -366,7 +374,7 @@ namespace TimeKeeper
 
 
 
-		#region Show the Window
+#region Show the Window
 		/* This bit allows us to show the window, keep it top most and does not
 		 * steal the window focus.  Using the form.TopMost property always
 		 * causes the window to steal focus, so this is used instead.
@@ -388,7 +396,7 @@ namespace TimeKeeper
 			SetWindowPos(this.Handle, HWND_NOTTOPTOP, this.Location.X, this.Location.Y, this.Width, this.Height, SWP_NOACTIVATE);
 		}
 
-		#endregion
+#endregion
 		protected void ShowForm(bool activate) {
 			if (activate) this.Activate();
 
@@ -454,7 +462,7 @@ namespace TimeKeeper
 			}
 		}
 
-		#region Grid Handling
+#region Grid Handling
 		private List<Row> rows = new List<Row>();
 
 		public void SetupGrid()
@@ -603,7 +611,7 @@ namespace TimeKeeper
 			}
 		}
 
-		#endregion
+#endregion
 
 
 		public void SaveTime()
