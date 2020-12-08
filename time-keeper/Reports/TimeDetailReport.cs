@@ -32,7 +32,7 @@ namespace TimeKeeper
 			this.clbProjects.Items.AddRange(new ListBox.ObjectCollection(this.clbProjects, projects));
 			this.clbProjects.Items.Insert(0, new Project { ProjectID = 0, Name = "All Projects" });
 
-			this.clbProjects.SetItemChecked(0, true);	// Check all the items (the event will fire and check all the other items)
+			this.clbProjects.SetItemChecked(0, true);   // Check all the items (the event will fire and check all the other items)
 
 			this.StartPosition = FormStartPosition.CenterParent;
 			return this.ShowDialog(owner);
@@ -44,6 +44,10 @@ namespace TimeKeeper
 			{
 				this.clbProjects.Visible = true;
 				this.clbProjects.Focus();
+			}
+			else
+			{
+				this.clbProjects.Visible = false;
 			}
 		}
 
@@ -66,10 +70,16 @@ namespace TimeKeeper
 				this.lvReportData.BeginUpdate();
 				this.lvReportData.Items.Clear();
 
+				long totalTime = 0;
+
 				foreach (var row in data)
 				{
+					totalTime += row.Minutes;
 					this.lvReportData.Items.Add(new ListViewItem(new string[] { row.EntryDateFormatted, row.ProjectNameFormatted, row.Department, Strings.ReformatLongTime(row.Minutes), row.Description }));
 				}
+
+				this.lblTotalTime.Text = Strings.ReformatLongTime(totalTime);
+				this.lblTimeInReportPeriod.Text = Strings.ReformatLongTime(DateTimes.GetWorkingDayCount(this.dtpStartDate.Value.Date, this.dtpEndDate.Value.Date) * 8 * 60);
 			}
 			catch (Exception ex)
 			{
@@ -172,8 +182,12 @@ namespace TimeKeeper
 			if (handleClick)
 			{
 				var activationControl = this.clbProjects.Tag as Control;
-				if (!this.clbProjects.ClientRectangle.Contains(this.clbProjects.PointToClient(Cursor.Position)))
+
+				// Fix up to include the scrollbar in the ClientRectangle
+				var fixedClientRectangle = new System.Drawing.Rectangle(this.clbProjects.ClientRectangle.X, this.clbProjects.ClientRectangle.Y, this.clbProjects.Bounds.Width, this.clbProjects.Bounds.Height);
+				if (!fixedClientRectangle.Contains(this.clbProjects.PointToClient(Cursor.Position)))
 				{
+
 					// If the activating control was clicked then we let it handle showing/hiding the child control
 					if (activationControl == null || !activationControl.ClientRectangle.Contains(activationControl.PointToClient(Cursor.Position)))
 					{
@@ -186,5 +200,21 @@ namespace TimeKeeper
 		}
 		#endregion
 
+		private void dtpStartDate_ValueChanged(object sender, EventArgs e)
+		{
+			if (this.dtpStartDate.Value > this.dtpEndDate.Value)
+			{
+				this.dtpEndDate.Value = this.dtpStartDate.Value;
+			}
+
+		}
+
+		private void dtpEndDate_ValueChanged(object sender, EventArgs e)
+		{
+			if (this.dtpStartDate.Value > this.dtpEndDate.Value)
+			{
+				this.dtpStartDate.Value = this.dtpEndDate.Value;
+			}
+		}
 	}
 }

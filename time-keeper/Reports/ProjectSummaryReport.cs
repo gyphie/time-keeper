@@ -19,7 +19,7 @@ namespace TimeKeeper
 		{
 			DateTime now = DateTime.Now;
 			DateTime endDate = DateTime.Now.Date;
-			DateTime beginDate = endDate.AddDays(Math.Min(0, -(int)endDate.DayOfWeek + 1));	// Move to Monday of this week
+			DateTime beginDate = endDate.AddDays(Math.Min(0, -(int)endDate.DayOfWeek + 1)); // Move to Monday of this week
 
 			this.dtpStartDate.Value = beginDate;
 			this.dtpEndDate.Value = endDate;
@@ -70,10 +70,16 @@ namespace TimeKeeper
 				this.lvReportData.BeginUpdate();
 				this.lvReportData.Items.Clear();
 
+				long totalTime = 0;
+
 				foreach (var row in data)
 				{
+					totalTime += row.TotalMinutes;
 					this.lvReportData.Items.Add(new ListViewItem(new string[] { row.ProjectNameFormatted, row.Department, Strings.ReformatLongTime(row.TotalMinutes) }));
 				}
+
+				this.lblTotalTime.Text = Strings.ReformatLongTime(totalTime);
+				this.lblTimeInReportPeriod.Text = Strings.ReformatLongTime(DateTimes.GetWorkingDayCount(this.dtpStartDate.Value.Date, this.dtpEndDate.Value.Date) * 8 * 60);
 			}
 			catch (Exception ex)
 			{
@@ -91,7 +97,7 @@ namespace TimeKeeper
 		{
 			this.SuspendLayout();
 			this.clbProjects.BeginUpdate();
-			
+
 			this.clbProjects.ItemCheck -= clbProjects_ItemCheck;
 
 			try
@@ -176,8 +182,12 @@ namespace TimeKeeper
 			if (handleClick)
 			{
 				var activationControl = this.clbProjects.Tag as Control;
-				if (!this.clbProjects.ClientRectangle.Contains(this.clbProjects.PointToClient(Cursor.Position)))
+
+				// Fix up to include the scrollbar in the ClientRectangle
+				var fixedClientRectangle = new System.Drawing.Rectangle(this.clbProjects.ClientRectangle.X, this.clbProjects.ClientRectangle.Y, this.clbProjects.Bounds.Width, this.clbProjects.Bounds.Height);
+				if (!fixedClientRectangle.Contains(this.clbProjects.PointToClient(Cursor.Position)))
 				{
+
 					// If the activating control was clicked then we let it handle showing/hiding the child control
 					if (activationControl == null || !activationControl.ClientRectangle.Contains(activationControl.PointToClient(Cursor.Position)))
 					{
@@ -189,5 +199,22 @@ namespace TimeKeeper
 			base.WndProc(ref m);
 		}
 		#endregion
+
+		private void dtpStartDate_ValueChanged(object sender, EventArgs e)
+		{
+			if (this.dtpStartDate.Value > this.dtpEndDate.Value)
+			{
+				this.dtpEndDate.Value = this.dtpStartDate.Value;
+			}
+
+		}
+
+		private void dtpEndDate_ValueChanged(object sender, EventArgs e)
+		{
+			if (this.dtpStartDate.Value > this.dtpEndDate.Value)
+			{
+				this.dtpStartDate.Value = this.dtpEndDate.Value;
+			}
+		}
 	}
 }

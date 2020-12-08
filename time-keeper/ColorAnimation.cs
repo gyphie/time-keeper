@@ -11,7 +11,8 @@ namespace TimeKeeper
 			EndToStart
 		}
 
-		public ColorAnimationLoop(Color startColor, Color endColor, int steps, LoopType type) : base(startColor, endColor, steps) {
+		public ColorAnimationLoop(Color startColor, Color endColor, int steps, LoopType type) : base(startColor, endColor, steps)
+		{
 			this.Type = type;
 		}
 

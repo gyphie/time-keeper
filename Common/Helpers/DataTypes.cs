@@ -19,6 +19,21 @@ namespace Common.Helpers.DataTypes
 		}
 	}
 
+	public static class DateTimes
+	{
+		/// Credit: https://stackoverflow.com/a/1646396/5583585
+		public static long GetWorkingDayCount(DateTime startDate, DateTime endDate)
+		{
+			double calcBusinessDays =
+				1 + ((endDate - startDate).TotalDays * 5 -
+				(startDate.DayOfWeek - endDate.DayOfWeek) * 2) / 7;
+
+			if (endDate.DayOfWeek == DayOfWeek.Saturday) calcBusinessDays--;
+			if (startDate.DayOfWeek == DayOfWeek.Sunday) calcBusinessDays--;
+
+			return (long)calcBusinessDays;
+		}
+	}
 
 
 	public static class Strings

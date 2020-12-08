@@ -42,6 +42,10 @@
 			this.btnUpdateReport = new System.Windows.Forms.Button();
 			this.clbProjects = new System.Windows.Forms.CheckedListBox();
 			this.btnProjects = new System.Windows.Forms.Button();
+			this.lblTotalTimeLabel = new System.Windows.Forms.Label();
+			this.lblTotalTime = new System.Windows.Forms.Label();
+			this.lblTimeInReportPeriod = new System.Windows.Forms.Label();
+			this.lblTiRPLabel = new System.Windows.Forms.Label();
 			this.SuspendLayout();
 			// 
 			// lvReportData
@@ -63,7 +67,7 @@
 			this.lvReportData.Location = new System.Drawing.Point(0, 38);
 			this.lvReportData.Name = "lvReportData";
 			this.lvReportData.ShowGroups = false;
-			this.lvReportData.Size = new System.Drawing.Size(993, 358);
+			this.lvReportData.Size = new System.Drawing.Size(993, 330);
 			this.lvReportData.TabIndex = 7;
 			this.lvReportData.TabStop = false;
 			this.lvReportData.UseCompatibleStateImageBehavior = false;
@@ -100,6 +104,7 @@
 			this.dtpStartDate.Name = "dtpStartDate";
 			this.dtpStartDate.Size = new System.Drawing.Size(113, 20);
 			this.dtpStartDate.TabIndex = 1;
+			this.dtpStartDate.ValueChanged += new System.EventHandler(this.dtpStartDate_ValueChanged);
 			// 
 			// dtpEndDate
 			// 
@@ -108,6 +113,7 @@
 			this.dtpEndDate.Name = "dtpEndDate";
 			this.dtpEndDate.Size = new System.Drawing.Size(107, 20);
 			this.dtpEndDate.TabIndex = 3;
+			this.dtpEndDate.ValueChanged += new System.EventHandler(this.dtpEndDate_ValueChanged);
 			// 
 			// lblStartDate
 			// 
@@ -158,11 +164,56 @@
 			this.btnProjects.UseVisualStyleBackColor = true;
 			this.btnProjects.Click += new System.EventHandler(this.btnProjects_Click);
 			// 
+			// lblTotalTimeLabel
+			// 
+			this.lblTotalTimeLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.lblTotalTimeLabel.AutoSize = true;
+			this.lblTotalTimeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblTotalTimeLabel.Location = new System.Drawing.Point(501, 374);
+			this.lblTotalTimeLabel.Name = "lblTotalTimeLabel";
+			this.lblTotalTimeLabel.Size = new System.Drawing.Size(40, 13);
+			this.lblTotalTimeLabel.TabIndex = 9;
+			this.lblTotalTimeLabel.Text = "Total:";
+			this.lblTotalTimeLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
+			// 
+			// lblTotalTime
+			// 
+			this.lblTotalTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.lblTotalTime.AutoSize = true;
+			this.lblTotalTime.Location = new System.Drawing.Point(544, 374);
+			this.lblTotalTime.Name = "lblTotalTime";
+			this.lblTotalTime.Size = new System.Drawing.Size(13, 13);
+			this.lblTotalTime.TabIndex = 10;
+			this.lblTotalTime.Text = "0";
+			// 
+			// lblTimeInReportPeriod
+			// 
+			this.lblTimeInReportPeriod.AutoSize = true;
+			this.lblTimeInReportPeriod.Location = new System.Drawing.Point(407, 374);
+			this.lblTimeInReportPeriod.Name = "lblTimeInReportPeriod";
+			this.lblTimeInReportPeriod.Size = new System.Drawing.Size(24, 13);
+			this.lblTimeInReportPeriod.TabIndex = 12;
+			this.lblTimeInReportPeriod.Text = "0 m";
+			// 
+			// lblTiRPLabel
+			// 
+			this.lblTiRPLabel.AutoSize = true;
+			this.lblTiRPLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblTiRPLabel.Location = new System.Drawing.Point(267, 374);
+			this.lblTiRPLabel.Name = "lblTiRPLabel";
+			this.lblTiRPLabel.Size = new System.Drawing.Size(134, 13);
+			this.lblTiRPLabel.TabIndex = 11;
+			this.lblTiRPLabel.Text = "Time in Report Period:";
+			// 
 			// TimeDetailReport
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(994, 396);
+			this.Controls.Add(this.lblTimeInReportPeriod);
+			this.Controls.Add(this.lblTiRPLabel);
+			this.Controls.Add(this.lblTotalTimeLabel);
+			this.Controls.Add(this.lblTotalTime);
 			this.Controls.Add(this.clbProjects);
 			this.Controls.Add(this.btnProjects);
 			this.Controls.Add(this.btnUpdateReport);
@@ -196,5 +247,9 @@
 		private System.Windows.Forms.ColumnHeader chDepartment;
 		private System.Windows.Forms.ColumnHeader chTime;
 		private System.Windows.Forms.ColumnHeader chDescription;
+		private System.Windows.Forms.Label lblTotalTimeLabel;
+		private System.Windows.Forms.Label lblTotalTime;
+		private System.Windows.Forms.Label lblTimeInReportPeriod;
+		private System.Windows.Forms.Label lblTiRPLabel;
 	}
 }
