@@ -24,7 +24,7 @@ namespace TimeKeeper
 			this.dtpStartDate.Value = beginDate;
 			this.dtpEndDate.Value = endDate;
 
-			var projects = TimeKeeperData.GetProjects().Where(a => a.IsActive).ToArray();
+			var projects = TimeKeeperData.GetActiveProjects().ToArray();
 
 			this.clbProjects.Visible = false;
 

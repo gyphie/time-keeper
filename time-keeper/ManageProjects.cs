@@ -31,7 +31,7 @@ namespace TimeKeeper
 
 		private void LoadListBox(bool showInactive, long selectedProjectID = 0)
 		{
-			var projects = TimeKeeperData.GetProjects().Where(a => a.IsActive || showInactive).ToList();
+			var projects = showInactive ? TimeKeeperData.GetAllProjects() : TimeKeeperData.GetActiveProjects();
 			projects.Sort();
 
 			var previousSelectedIndex = this.lvProjects.SelectedIndices.Count > 0 ? this.lvProjects.SelectedIndices[0] : 0;

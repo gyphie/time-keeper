@@ -100,6 +100,13 @@
 			this.projectBox3 = new GroupedComboBox();
 			this.projectBox2 = new GroupedComboBox();
 			this.projectBox1 = new GroupedComboBox();
+			this.deleteBtn1 = new System.Windows.Forms.Label();
+			this.deleteBtn2 = new System.Windows.Forms.Label();
+			this.deleteBtn3 = new System.Windows.Forms.Label();
+			this.deleteBtn4 = new System.Windows.Forms.Label();
+			this.deleteBtn5 = new System.Windows.Forms.Label();
+			this.deleteBtn6 = new System.Windows.Forms.Label();
+			this.deleteBtn7 = new System.Windows.Forms.Label();
 			this.cmsNotifyIcon.SuspendLayout();
 			this.msMain.SuspendLayout();
 			this.SuspendLayout();
@@ -109,7 +116,7 @@
 			this.btnSave.Location = new System.Drawing.Point(399, 210);
 			this.btnSave.Name = "btnSave";
 			this.btnSave.Size = new System.Drawing.Size(75, 28);
-			this.btnSave.TabIndex = 31;
+			this.btnSave.TabIndex = 37;
 			this.btnSave.Text = "Save";
 			this.btnSave.UseVisualStyleBackColor = true;
 			this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
@@ -171,7 +178,7 @@
 			this.lblMinutes.Location = new System.Drawing.Point(16, 206);
 			this.lblMinutes.Name = "lblMinutes";
 			this.lblMinutes.Size = new System.Drawing.Size(55, 13);
-			this.lblMinutes.TabIndex = 26;
+			this.lblMinutes.TabIndex = 32;
 			this.lblMinutes.Text = "Minutes:";
 			// 
 			// lblName
@@ -181,7 +188,7 @@
 			this.lblName.Location = new System.Drawing.Point(16, 225);
 			this.lblName.Name = "lblName";
 			this.lblName.Size = new System.Drawing.Size(43, 13);
-			this.lblName.TabIndex = 28;
+			this.lblName.TabIndex = 34;
 			this.lblName.Text = "Name:";
 			// 
 			// dispName
@@ -190,7 +197,7 @@
 			this.dispName.Location = new System.Drawing.Point(77, 225);
 			this.dispName.Name = "dispName";
 			this.dispName.Size = new System.Drawing.Size(53, 13);
-			this.dispName.TabIndex = 29;
+			this.dispName.TabIndex = 35;
 			this.dispName.Text = "Unknown";
 			// 
 			// lblProject
@@ -199,25 +206,25 @@
 			this.lblProject.Location = new System.Drawing.Point(16, 34);
 			this.lblProject.Name = "lblProject";
 			this.lblProject.Size = new System.Drawing.Size(40, 13);
-			this.lblProject.TabIndex = 2;
+			this.lblProject.TabIndex = 1;
 			this.lblProject.Text = "Project";
 			// 
 			// lblTime
 			// 
 			this.lblTime.AutoSize = true;
-			this.lblTime.Location = new System.Drawing.Point(241, 34);
+			this.lblTime.Location = new System.Drawing.Point(226, 34);
 			this.lblTime.Name = "lblTime";
 			this.lblTime.Size = new System.Drawing.Size(30, 13);
-			this.lblTime.TabIndex = 3;
+			this.lblTime.TabIndex = 2;
 			this.lblTime.Text = "Time";
 			// 
 			// lblDescription
 			// 
 			this.lblDescription.AutoSize = true;
-			this.lblDescription.Location = new System.Drawing.Point(290, 34);
+			this.lblDescription.Location = new System.Drawing.Point(275, 34);
 			this.lblDescription.Name = "lblDescription";
 			this.lblDescription.Size = new System.Drawing.Size(60, 13);
-			this.lblDescription.TabIndex = 4;
+			this.lblDescription.TabIndex = 3;
 			this.lblDescription.Text = "Description";
 			// 
 			// cdButtonColor
@@ -232,7 +239,7 @@
 			this.dispMinutes.Location = new System.Drawing.Point(77, 206);
 			this.dispMinutes.Name = "dispMinutes";
 			this.dispMinutes.Size = new System.Drawing.Size(57, 17);
-			this.dispMinutes.TabIndex = 27;
+			this.dispMinutes.TabIndex = 33;
 			this.dispMinutes.TabStop = true;
 			this.dispMinutes.Text = "0 m of 0 m";
 			this.dispMinutes.UseCompatibleTextRendering = true;
@@ -500,109 +507,109 @@
 			this.llDiscardTime.Location = new System.Drawing.Point(324, 218);
 			this.llDiscardTime.Name = "llDiscardTime";
 			this.llDiscardTime.Size = new System.Drawing.Size(69, 13);
-			this.llDiscardTime.TabIndex = 30;
+			this.llDiscardTime.TabIndex = 36;
 			this.llDiscardTime.TabStop = true;
 			this.llDiscardTime.Text = "Discard Time";
 			this.llDiscardTime.Click += new System.EventHandler(this.btnDiscard_Click);
 			// 
 			// timeBox7
 			// 
-			this.timeBox7.Location = new System.Drawing.Point(236, 170);
+			this.timeBox7.Location = new System.Drawing.Point(221, 170);
 			this.timeBox7.Name = "timeBox7";
 			this.timeBox7.Size = new System.Drawing.Size(45, 20);
-			this.timeBox7.TabIndex = 24;
+			this.timeBox7.TabIndex = 29;
 			// 
 			// timeBox6
 			// 
-			this.timeBox6.Location = new System.Drawing.Point(236, 150);
+			this.timeBox6.Location = new System.Drawing.Point(221, 150);
 			this.timeBox6.Name = "timeBox6";
 			this.timeBox6.Size = new System.Drawing.Size(45, 20);
-			this.timeBox6.TabIndex = 21;
+			this.timeBox6.TabIndex = 25;
 			// 
 			// timeBox5
 			// 
-			this.timeBox5.Location = new System.Drawing.Point(236, 130);
+			this.timeBox5.Location = new System.Drawing.Point(221, 130);
 			this.timeBox5.Name = "timeBox5";
 			this.timeBox5.Size = new System.Drawing.Size(45, 20);
-			this.timeBox5.TabIndex = 18;
+			this.timeBox5.TabIndex = 21;
 			// 
 			// timeBox4
 			// 
-			this.timeBox4.Location = new System.Drawing.Point(236, 110);
+			this.timeBox4.Location = new System.Drawing.Point(221, 110);
 			this.timeBox4.Name = "timeBox4";
 			this.timeBox4.Size = new System.Drawing.Size(45, 20);
-			this.timeBox4.TabIndex = 15;
+			this.timeBox4.TabIndex = 17;
 			// 
 			// timeBox3
 			// 
-			this.timeBox3.Location = new System.Drawing.Point(236, 90);
+			this.timeBox3.Location = new System.Drawing.Point(221, 90);
 			this.timeBox3.Name = "timeBox3";
 			this.timeBox3.Size = new System.Drawing.Size(45, 20);
-			this.timeBox3.TabIndex = 12;
+			this.timeBox3.TabIndex = 13;
 			// 
 			// timeBox2
 			// 
-			this.timeBox2.Location = new System.Drawing.Point(236, 70);
+			this.timeBox2.Location = new System.Drawing.Point(221, 70);
 			this.timeBox2.Name = "timeBox2";
 			this.timeBox2.Size = new System.Drawing.Size(45, 20);
 			this.timeBox2.TabIndex = 9;
 			// 
 			// descriptionBox7
 			// 
-			this.descriptionBox7.Location = new System.Drawing.Point(280, 170);
+			this.descriptionBox7.Location = new System.Drawing.Point(265, 170);
 			this.descriptionBox7.Name = "descriptionBox7";
 			this.descriptionBox7.Size = new System.Drawing.Size(194, 20);
-			this.descriptionBox7.TabIndex = 25;
+			this.descriptionBox7.TabIndex = 30;
 			// 
 			// descriptionBox6
 			// 
-			this.descriptionBox6.Location = new System.Drawing.Point(280, 150);
+			this.descriptionBox6.Location = new System.Drawing.Point(265, 150);
 			this.descriptionBox6.Name = "descriptionBox6";
 			this.descriptionBox6.Size = new System.Drawing.Size(194, 20);
-			this.descriptionBox6.TabIndex = 22;
+			this.descriptionBox6.TabIndex = 26;
 			// 
 			// descriptionBox5
 			// 
-			this.descriptionBox5.Location = new System.Drawing.Point(280, 130);
+			this.descriptionBox5.Location = new System.Drawing.Point(265, 130);
 			this.descriptionBox5.Name = "descriptionBox5";
 			this.descriptionBox5.Size = new System.Drawing.Size(194, 20);
-			this.descriptionBox5.TabIndex = 19;
+			this.descriptionBox5.TabIndex = 22;
 			// 
 			// descriptionBox4
 			// 
-			this.descriptionBox4.Location = new System.Drawing.Point(280, 110);
+			this.descriptionBox4.Location = new System.Drawing.Point(265, 110);
 			this.descriptionBox4.Name = "descriptionBox4";
 			this.descriptionBox4.Size = new System.Drawing.Size(194, 20);
-			this.descriptionBox4.TabIndex = 16;
+			this.descriptionBox4.TabIndex = 18;
 			// 
 			// descriptionBox3
 			// 
-			this.descriptionBox3.Location = new System.Drawing.Point(280, 90);
+			this.descriptionBox3.Location = new System.Drawing.Point(265, 90);
 			this.descriptionBox3.Name = "descriptionBox3";
 			this.descriptionBox3.Size = new System.Drawing.Size(194, 20);
-			this.descriptionBox3.TabIndex = 13;
+			this.descriptionBox3.TabIndex = 14;
 			// 
 			// descriptionBox2
 			// 
-			this.descriptionBox2.Location = new System.Drawing.Point(280, 70);
+			this.descriptionBox2.Location = new System.Drawing.Point(265, 70);
 			this.descriptionBox2.Name = "descriptionBox2";
 			this.descriptionBox2.Size = new System.Drawing.Size(194, 20);
 			this.descriptionBox2.TabIndex = 10;
 			// 
 			// descriptionBox1
 			// 
-			this.descriptionBox1.Location = new System.Drawing.Point(280, 50);
+			this.descriptionBox1.Location = new System.Drawing.Point(265, 50);
 			this.descriptionBox1.Name = "descriptionBox1";
 			this.descriptionBox1.Size = new System.Drawing.Size(194, 20);
-			this.descriptionBox1.TabIndex = 7;
+			this.descriptionBox1.TabIndex = 6;
 			// 
 			// timeBox1
 			// 
 			this.timeBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.timeBox1.Location = new System.Drawing.Point(236, 50);
+			this.timeBox1.Location = new System.Drawing.Point(221, 50);
 			this.timeBox1.Name = "timeBox1";
 			this.timeBox1.Size = new System.Drawing.Size(45, 20);
-			this.timeBox1.TabIndex = 6;
+			this.timeBox1.TabIndex = 5;
 			// 
 			// projectBox7
 			// 
@@ -617,8 +624,8 @@
 			this.projectBox7.IntegralHeight = false;
 			this.projectBox7.Location = new System.Drawing.Point(12, 170);
 			this.projectBox7.Name = "projectBox7";
-			this.projectBox7.Size = new System.Drawing.Size(225, 21);
-			this.projectBox7.TabIndex = 23;
+			this.projectBox7.Size = new System.Drawing.Size(210, 21);
+			this.projectBox7.TabIndex = 28;
 			this.projectBox7.ValueMember = "ProjectID";
 			// 
 			// projectBox6
@@ -634,8 +641,8 @@
 			this.projectBox6.IntegralHeight = false;
 			this.projectBox6.Location = new System.Drawing.Point(12, 150);
 			this.projectBox6.Name = "projectBox6";
-			this.projectBox6.Size = new System.Drawing.Size(225, 21);
-			this.projectBox6.TabIndex = 20;
+			this.projectBox6.Size = new System.Drawing.Size(210, 21);
+			this.projectBox6.TabIndex = 24;
 			this.projectBox6.ValueMember = "ProjectID";
 			// 
 			// projectBox5
@@ -651,8 +658,8 @@
 			this.projectBox5.IntegralHeight = false;
 			this.projectBox5.Location = new System.Drawing.Point(12, 130);
 			this.projectBox5.Name = "projectBox5";
-			this.projectBox5.Size = new System.Drawing.Size(225, 21);
-			this.projectBox5.TabIndex = 17;
+			this.projectBox5.Size = new System.Drawing.Size(210, 21);
+			this.projectBox5.TabIndex = 20;
 			this.projectBox5.ValueMember = "ProjectID";
 			// 
 			// projectBox4
@@ -668,8 +675,8 @@
 			this.projectBox4.IntegralHeight = false;
 			this.projectBox4.Location = new System.Drawing.Point(12, 110);
 			this.projectBox4.Name = "projectBox4";
-			this.projectBox4.Size = new System.Drawing.Size(225, 21);
-			this.projectBox4.TabIndex = 14;
+			this.projectBox4.Size = new System.Drawing.Size(210, 21);
+			this.projectBox4.TabIndex = 16;
 			this.projectBox4.ValueMember = "ProjectID";
 			// 
 			// projectBox3
@@ -685,8 +692,8 @@
 			this.projectBox3.IntegralHeight = false;
 			this.projectBox3.Location = new System.Drawing.Point(12, 90);
 			this.projectBox3.Name = "projectBox3";
-			this.projectBox3.Size = new System.Drawing.Size(225, 21);
-			this.projectBox3.TabIndex = 11;
+			this.projectBox3.Size = new System.Drawing.Size(210, 21);
+			this.projectBox3.TabIndex = 12;
 			this.projectBox3.ValueMember = "ProjectID";
 			// 
 			// projectBox2
@@ -702,7 +709,7 @@
 			this.projectBox2.IntegralHeight = false;
 			this.projectBox2.Location = new System.Drawing.Point(12, 70);
 			this.projectBox2.Name = "projectBox2";
-			this.projectBox2.Size = new System.Drawing.Size(225, 21);
+			this.projectBox2.Size = new System.Drawing.Size(210, 21);
 			this.projectBox2.TabIndex = 8;
 			this.projectBox2.ValueMember = "ProjectID";
 			// 
@@ -719,9 +726,100 @@
 			this.projectBox1.IntegralHeight = false;
 			this.projectBox1.Location = new System.Drawing.Point(12, 50);
 			this.projectBox1.Name = "projectBox1";
-			this.projectBox1.Size = new System.Drawing.Size(225, 21);
-			this.projectBox1.TabIndex = 5;
+			this.projectBox1.Size = new System.Drawing.Size(210, 21);
+			this.projectBox1.TabIndex = 4;
 			this.projectBox1.ValueMember = "ProjectID";
+			// 
+			// deleteBtn1
+			// 
+			this.deleteBtn1.BackColor = System.Drawing.Color.Transparent;
+			this.deleteBtn1.Cursor = System.Windows.Forms.Cursors.Hand;
+			this.deleteBtn1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.deleteBtn1.ForeColor = System.Drawing.Color.DarkRed;
+			this.deleteBtn1.Location = new System.Drawing.Point(460, 50);
+			this.deleteBtn1.Name = "deleteBtn1";
+			this.deleteBtn1.Size = new System.Drawing.Size(20, 20);
+			this.deleteBtn1.TabIndex = 7;
+			this.deleteBtn1.Text = "❌";
+			this.deleteBtn1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// deleteBtn2
+			// 
+			this.deleteBtn2.BackColor = System.Drawing.Color.Transparent;
+			this.deleteBtn2.Cursor = System.Windows.Forms.Cursors.Hand;
+			this.deleteBtn2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.deleteBtn2.ForeColor = System.Drawing.Color.DarkRed;
+			this.deleteBtn2.Location = new System.Drawing.Point(460, 70);
+			this.deleteBtn2.Name = "deleteBtn2";
+			this.deleteBtn2.Size = new System.Drawing.Size(20, 20);
+			this.deleteBtn2.TabIndex = 11;
+			this.deleteBtn2.Text = "❌";
+			this.deleteBtn2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// deleteBtn3
+			// 
+			this.deleteBtn3.BackColor = System.Drawing.Color.Transparent;
+			this.deleteBtn3.Cursor = System.Windows.Forms.Cursors.Hand;
+			this.deleteBtn3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.deleteBtn3.ForeColor = System.Drawing.Color.DarkRed;
+			this.deleteBtn3.Location = new System.Drawing.Point(460, 90);
+			this.deleteBtn3.Name = "deleteBtn3";
+			this.deleteBtn3.Size = new System.Drawing.Size(20, 20);
+			this.deleteBtn3.TabIndex = 15;
+			this.deleteBtn3.Text = "❌";
+			this.deleteBtn3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// deleteBtn4
+			// 
+			this.deleteBtn4.BackColor = System.Drawing.Color.Transparent;
+			this.deleteBtn4.Cursor = System.Windows.Forms.Cursors.Hand;
+			this.deleteBtn4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.deleteBtn4.ForeColor = System.Drawing.Color.DarkRed;
+			this.deleteBtn4.Location = new System.Drawing.Point(460, 110);
+			this.deleteBtn4.Name = "deleteBtn4";
+			this.deleteBtn4.Size = new System.Drawing.Size(20, 20);
+			this.deleteBtn4.TabIndex = 19;
+			this.deleteBtn4.Text = "❌";
+			this.deleteBtn4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// deleteBtn5
+			// 
+			this.deleteBtn5.BackColor = System.Drawing.Color.Transparent;
+			this.deleteBtn5.Cursor = System.Windows.Forms.Cursors.Hand;
+			this.deleteBtn5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.deleteBtn5.ForeColor = System.Drawing.Color.DarkRed;
+			this.deleteBtn5.Location = new System.Drawing.Point(460, 130);
+			this.deleteBtn5.Name = "deleteBtn5";
+			this.deleteBtn5.Size = new System.Drawing.Size(20, 20);
+			this.deleteBtn5.TabIndex = 23;
+			this.deleteBtn5.Text = "❌";
+			this.deleteBtn5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// deleteBtn6
+			// 
+			this.deleteBtn6.BackColor = System.Drawing.Color.Transparent;
+			this.deleteBtn6.Cursor = System.Windows.Forms.Cursors.Hand;
+			this.deleteBtn6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.deleteBtn6.ForeColor = System.Drawing.Color.DarkRed;
+			this.deleteBtn6.Location = new System.Drawing.Point(460, 150);
+			this.deleteBtn6.Name = "deleteBtn6";
+			this.deleteBtn6.Size = new System.Drawing.Size(20, 20);
+			this.deleteBtn6.TabIndex = 27;
+			this.deleteBtn6.Text = "❌";
+			this.deleteBtn6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// deleteBtn7
+			// 
+			this.deleteBtn7.BackColor = System.Drawing.Color.Transparent;
+			this.deleteBtn7.Cursor = System.Windows.Forms.Cursors.Hand;
+			this.deleteBtn7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.deleteBtn7.ForeColor = System.Drawing.Color.DarkRed;
+			this.deleteBtn7.Location = new System.Drawing.Point(460, 170);
+			this.deleteBtn7.Name = "deleteBtn7";
+			this.deleteBtn7.Size = new System.Drawing.Size(20, 20);
+			this.deleteBtn7.TabIndex = 31;
+			this.deleteBtn7.Text = "❌";
+			this.deleteBtn7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// frmTimeKeeper
 			// 
@@ -729,6 +827,14 @@
 			this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
 			this.ClientSize = new System.Drawing.Size(494, 247);
+			this.Controls.Add(this.deleteBtn7);
+			this.Controls.Add(this.deleteBtn6);
+			this.Controls.Add(this.deleteBtn5);
+			this.Controls.Add(this.deleteBtn4);
+			this.Controls.Add(this.deleteBtn3);
+			this.Controls.Add(this.deleteBtn2);
+			this.Controls.Add(this.deleteBtn1);
+			this.Controls.Add(this.descriptionBox1);
 			this.Controls.Add(this.timeBox7);
 			this.Controls.Add(this.timeBox6);
 			this.Controls.Add(this.timeBox5);
@@ -741,7 +847,6 @@
 			this.Controls.Add(this.descriptionBox4);
 			this.Controls.Add(this.descriptionBox3);
 			this.Controls.Add(this.descriptionBox2);
-			this.Controls.Add(this.descriptionBox1);
 			this.Controls.Add(this.timeBox1);
 			this.Controls.Add(this.projectBox7);
 			this.Controls.Add(this.projectBox6);
@@ -854,6 +959,13 @@
 		private GroupedComboBox projectBox2;
 		private GroupedComboBox projectBox1;
 		private System.Windows.Forms.ToolStripMenuItem projectToolStripMenuItem;
+		private System.Windows.Forms.Label deleteBtn1;
+		private System.Windows.Forms.Label deleteBtn2;
+		private System.Windows.Forms.Label deleteBtn3;
+		private System.Windows.Forms.Label deleteBtn4;
+		private System.Windows.Forms.Label deleteBtn5;
+		private System.Windows.Forms.Label deleteBtn6;
+		private System.Windows.Forms.Label deleteBtn7;
 	}
 }
 

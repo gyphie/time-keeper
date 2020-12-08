@@ -147,7 +147,16 @@ namespace TimeKeeper
 			return logs;
 		}
 
-		public static List<Project> GetProjects()
+		public static List<Project> GetActiveProjects()
+		{
+			return TimeKeeperData.GetProjects(activeOnly: true);
+		}
+		public static List<Project> GetAllProjects()
+		{
+			return TimeKeeperData.GetProjects(activeOnly: false);
+		}
+
+		private static List<Project> GetProjects(bool activeOnly)
 		{
 			var projects = new List<Project>();
 
@@ -155,7 +164,14 @@ namespace TimeKeeper
 			{
 				conn.Open();
 
-				using (var cmd = new SQLiteCommand("SELECT ProjectID, Name, Department, CreateDate, IsActive FROM Project", conn))
+				string query = "SELECT ProjectID, Name, Department, CreateDate, IsActive FROM Project";
+				
+				if (activeOnly)
+				{
+					query += " WHERE IsActive = 1";
+				}
+
+				using (var cmd = new SQLiteCommand(query, conn))
 				{
 					cmd.CommandType = CommandType.Text;
 

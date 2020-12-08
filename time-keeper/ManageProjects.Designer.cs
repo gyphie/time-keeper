@@ -63,10 +63,10 @@
 			// 
 			this.cbShowInactive.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.cbShowInactive.AutoSize = true;
-			this.cbShowInactive.Location = new System.Drawing.Point(25, 269);
+			this.cbShowInactive.Location = new System.Drawing.Point(106, 269);
 			this.cbShowInactive.Name = "cbShowInactive";
 			this.cbShowInactive.Size = new System.Drawing.Size(135, 17);
-			this.cbShowInactive.TabIndex = 2;
+			this.cbShowInactive.TabIndex = 3;
 			this.cbShowInactive.Text = "&Show Inactive Projects";
 			this.cbShowInactive.UseVisualStyleBackColor = true;
 			this.cbShowInactive.CheckedChanged += new System.EventHandler(this.cbShowInactive_CheckedChanged);
@@ -74,10 +74,10 @@
 			// btnAddProject
 			// 
 			this.btnAddProject.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnAddProject.Location = new System.Drawing.Point(366, 265);
+			this.btnAddProject.Location = new System.Drawing.Point(19, 265);
 			this.btnAddProject.Name = "btnAddProject";
 			this.btnAddProject.Size = new System.Drawing.Size(75, 23);
-			this.btnAddProject.TabIndex = 3;
+			this.btnAddProject.TabIndex = 2;
 			this.btnAddProject.Text = "&Add";
 			this.btnAddProject.UseVisualStyleBackColor = true;
 			this.btnAddProject.Click += new System.EventHandler(this.btnAddProject_Click);

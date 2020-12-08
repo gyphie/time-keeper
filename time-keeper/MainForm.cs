@@ -461,13 +461,13 @@ namespace TimeKeeper
 		{
 			if (this.rows.Count == 0)
 			{
-				this.rows.Add(new Row(this.projectBox1, this.timeBox1, this.descriptionBox1));
-				this.rows.Add(new Row(this.projectBox2, this.timeBox2, this.descriptionBox2));
-				this.rows.Add(new Row(this.projectBox3, this.timeBox3, this.descriptionBox3));
-				this.rows.Add(new Row(this.projectBox4, this.timeBox4, this.descriptionBox4));
-				this.rows.Add(new Row(this.projectBox5, this.timeBox5, this.descriptionBox5));
-				this.rows.Add(new Row(this.projectBox6, this.timeBox6, this.descriptionBox6));
-				this.rows.Add(new Row(this.projectBox7, this.timeBox7, this.descriptionBox7));
+				this.rows.Add(new Row(this.projectBox1, this.timeBox1, this.descriptionBox1, this.deleteBtn1));
+				this.rows.Add(new Row(this.projectBox2, this.timeBox2, this.descriptionBox2, this.deleteBtn2));
+				this.rows.Add(new Row(this.projectBox3, this.timeBox3, this.descriptionBox3, this.deleteBtn3));
+				this.rows.Add(new Row(this.projectBox4, this.timeBox4, this.descriptionBox4, this.deleteBtn4));
+				this.rows.Add(new Row(this.projectBox5, this.timeBox5, this.descriptionBox5, this.deleteBtn5));
+				this.rows.Add(new Row(this.projectBox6, this.timeBox6, this.descriptionBox6, this.deleteBtn6));
+				this.rows.Add(new Row(this.projectBox7, this.timeBox7, this.descriptionBox7, this.deleteBtn7));
 
 				foreach (var row in this.rows)
 				{
@@ -475,6 +475,7 @@ namespace TimeKeeper
 					row.ProjectBox.KeyUp += new KeyEventHandler(Row_KeyUp);
 					row.TimeBox.TextChanged += new EventHandler(TimeBox_TextChanged);
 					row.TimeBox.Leave += new EventHandler(TimeBox_Leave);
+					row.DeleteButton.Click += new EventHandler(DeleteButton_Click);
 
 					// Events that bring the box to the front so the UI border effects display correctly since the boxes overlap slightly
 					row.ProjectBox.MouseEnter += new EventHandler(this.GridControl_Enter);
@@ -500,7 +501,7 @@ namespace TimeKeeper
 
 			try
 			{
-				List<Project> projects = TimeKeeperData.GetProjects();
+				List<Project> projects = TimeKeeperData.GetActiveProjects();
 				projects.Sort();
 
 				foreach (Row row in this.rows)
@@ -513,10 +514,41 @@ namespace TimeKeeper
 				{
 					this.rows.Single(r => r.ProjectBox.SelectedItem != null).SetTime(this.MinutesSinceLastSave, false);
 				}
+
+				this.RollupRows();
 			}
 			finally
 			{
 				SU.SuspendUpdate.Resume(this);  // Ok...we can paint again
+			}
+		}
+
+		// When the content of a row is deleted this leaves a gap. Move the contents up from below to fill in the gaps
+		private void RollupRows()
+		{
+			var rowCount = this.rows.Count;
+
+			for (int currentRowIdx = 0; currentRowIdx < rowCount; currentRowIdx++)
+			{
+				var curRow = this.rows[currentRowIdx];
+				if (curRow.IsEmpty)
+				{
+					for (int checkRowIdx = currentRowIdx + 1; checkRowIdx < rowCount; checkRowIdx++)
+					{
+						var checkRow = this.rows[checkRowIdx];
+						if (!checkRow.IsEmpty)
+						{
+							curRow.ProjectBox.Text = checkRow.ProjectBox.Text;
+							curRow.TimeBox.Text = checkRow.TimeBox.Text;
+							curRow.DescriptionBox.Text = checkRow.DescriptionBox.Text;
+							Row.UpdateDeleteButtonVisibility(curRow);
+
+							checkRow.Clear(true, true, true);
+
+							break;
+						}
+					}
+				}
 			}
 		}
 
@@ -544,6 +576,13 @@ namespace TimeKeeper
 			this.UpdateTimeLabel();
 		}
 
+
+		void DeleteButton_Click(object sender, EventArgs e)
+		{
+			this.UpdateTimeLabel();
+			this.RollupRows();
+		}
+
 		void ProjectBox_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			var control = sender as Control;
@@ -560,26 +599,10 @@ namespace TimeKeeper
 		{
 			foreach (Row row in this.rows)
 			{
-				if (clearProjects)
-				{
-					row.ProjectBox.SelectedIndex = -1;
-					row.ProjectBox.Text = "";
-				}
-				if (clearTime)
-				{
-					row.SetTime(0, false);
-				}
-				if (clearDescription)
-				{
-					row.DescriptionBox.Text = "";
-				}
+				row.Clear(clearProjects, clearTime, clearDescription);
 			}
 		}
 
-		// Handle grid resizing, always include enough rows to fill the screen
-		// Also keep one extra empty row at the end
-		// Also, add new rows if they scroll past the last row, but only enough to fill one
-		// empty grid
 		#endregion
 
 

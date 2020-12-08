@@ -18,7 +18,7 @@ namespace TimeKeeper
 		public DialogResult LoadAndShowDialog(IWin32Window owner, Project editProject = null)
 		{
 			// Get the department list and update the combo box
-			List<string> departments = TimeKeeperData.GetProjects().Select(a => a.Department).Distinct().ToList();
+			List<string> departments = TimeKeeperData.GetAllProjects().Select(a => a.Department).Distinct().ToList();
 			departments.Sort((a, b) => a.CompareTo(b));
 			departments.Insert(0, "");
 
