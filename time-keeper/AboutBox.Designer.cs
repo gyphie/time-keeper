@@ -140,9 +140,8 @@
 			this.textBoxDescription.Size = new System.Drawing.Size(318, 217);
 			this.textBoxDescription.TabIndex = 23;
 			this.textBoxDescription.TabStop = false;
-			this.textBoxDescription.Text = "WIN + Z : Open and focus on TimeKeeper\r\nEnter : Save entered time\r\nEsc : Hide Tim" +
-    "eKeeper\r\n\r\nHelp\r\n-------------\r\n- Time is converted to h:mm format\r\n- Logs are k" +
-    "ept locally in the user AppData\r\n";
+			this.textBoxDescription.Text = "Enter : Save entered time\r\nEsc : Hide TimeKeeper\r\n\r\nHelp\r\n-------------\r\n- Time i" +
+    "s converted to h:mm format\r\n- Logs are kept locally in the user AppData\r\n";
 			// 
 			// panel1
 			// 

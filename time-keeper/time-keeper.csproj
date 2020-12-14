@@ -153,7 +153,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="Shared.cs" />
-    <Compile Include="ThirdPartyTools\KeyboardHook.cs" />
     <Compile Include="ThirdPartyTools\SuspendUpdate.cs" />
     <Compile Include="ThirdPartyTools\UacSelfElevation\UacSelfElevation.cs" />
     <Compile Include="ThirdPartyTools\UacSelfElevation\NativeMethods.cs" />

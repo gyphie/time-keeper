@@ -19,31 +19,13 @@ namespace TimeKeeper
 		{
 			InitializeComponent();
 
-			this.hotKeyHook.KeyPressed += hotKeyHook_KeyPressed;
-
-			try
-			{
-				this.hotKeyHook.RegisterHotKey(KH.ModifierKeys.Win, Keys.Z);
-			}
-			catch
-			{
-				this.hotKeyHook.KeyPressed -= hotKeyHook_KeyPressed;
-				this.hotKeyHook = null;
-			}
-
 			SystemEvents.SessionSwitch += new SessionSwitchEventHandler(SystemEvents_SessionSwitch);
-		}
-
-		void hotKeyHook_KeyPressed(object sender, KH.KeyPressedEventArgs e)
-		{
-			this.ToggleForm(true, true);
 		}
 
 		private DateTime timeSinceLastSave = DateTime.Now;
 		private DateTime timeSinceLastPrompt = DateTime.Now;
 		private DateTime delayUntil = DateTime.MinValue;
 
-		private KH.KeyboardHook hotKeyHook = new KH.KeyboardHook();
 		private TimeDetailReport detailReportForm = new TimeDetailReport();
 		private ProjectSummaryReport projectSummaryReportForm = new ProjectSummaryReport();
 		private ManageProjects manageProjectsForm = new ManageProjects();

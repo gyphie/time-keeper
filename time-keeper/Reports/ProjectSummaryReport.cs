@@ -42,6 +42,7 @@ namespace TimeKeeper
 		{
 			if (!clbProjects.Visible)
 			{
+				this.clbProjects.BringToFront();
 				this.clbProjects.Visible = true;
 				this.clbProjects.Focus();
 			}
