@@ -108,6 +108,44 @@ namespace TimeKeeper
 			return projectSummary;
 		}
 
+		public static List<DailySummary> GetDailySummary(DateTime beginDate, DateTime endDate)
+		{
+			var dailySummary = new List<DailySummary>();
+
+			using (var conn = new SQLiteConnection(TimeKeeperData.ConnectionString))
+			{
+				conn.Open();
+
+				using (var cmd = new SQLiteCommand("SELECT LogSum.EntryDate, Project.ProjectID, Project.Name, Project.Department, LogSum.TotalMinutes FROM (SELECT EntryDate, ProjectID, SUM(minutes) AS TotalMinutes FROM Log WHERE EntryDate > @BeginDate AND EntryDate <= @EndDate GROUP BY date(EntryDate / 10000000 - 62136892800, 'unixepoch'), ProjectID) AS LogSum INNER JOIN Project ON LogSum.ProjectID = Project.ProjectID", conn))
+				{
+					cmd.CommandType = CommandType.Text;
+
+					cmd.Parameters.AddWithValue("@BeginDate", beginDate.Ticks);
+					cmd.Parameters.AddWithValue("@EndDate", endDate.Ticks);
+
+
+					using (var reader = cmd.ExecuteReader())
+					{
+						while (reader.Read())
+						{
+							int idx = 0;
+							dailySummary.Add(new DailySummary()
+							{
+								Date = new DateTime(reader.GetInt64(idx++)).Date,
+								ProjectID = reader.GetInt64(idx++),
+								ProjectName = reader.GetString(idx++),
+								Department = reader.GetString(idx++),
+								TotalMinutes = reader.GetInt64(idx++)
+							});
+						}
+					}
+				}
+			}
+
+			return dailySummary;
+		}
+
+
 		public static List<TimeDetail> GetTimeDetail(DateTime beginDate, DateTime endDate)
 		{
 			var logs = new List<TimeDetail>();

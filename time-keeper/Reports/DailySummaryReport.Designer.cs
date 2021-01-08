@@ -1,6 +1,6 @@
 ﻿namespace TimeKeeper.Reports
 {
-	partial class ProjectSummaryReport
+	partial class DailySummaryReport
 	{
 		/// <summary>
 		/// Required designer variable.
@@ -28,7 +28,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProjectSummaryReport));
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DailySummaryReport));
 			this.lvReportData = new System.Windows.Forms.ListView();
 			this.chProject = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.chDepartment = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -44,6 +44,7 @@
 			this.lblTotalTimeLabel = new System.Windows.Forms.Label();
 			this.lblTiRPLabel = new System.Windows.Forms.Label();
 			this.lblTimeInReportPeriod = new System.Windows.Forms.Label();
+			this.chDate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.SuspendLayout();
 			// 
 			// lvReportData
@@ -53,6 +54,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.lvReportData.BorderStyle = System.Windows.Forms.BorderStyle.None;
 			this.lvReportData.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.chDate,
             this.chProject,
             this.chDepartment,
             this.chTime});
@@ -63,7 +65,7 @@
 			this.lvReportData.MultiSelect = false;
 			this.lvReportData.Name = "lvReportData";
 			this.lvReportData.ShowGroups = false;
-			this.lvReportData.Size = new System.Drawing.Size(714, 330);
+			this.lvReportData.Size = new System.Drawing.Size(748, 330);
 			this.lvReportData.TabIndex = 7;
 			this.lvReportData.TabStop = false;
 			this.lvReportData.UseCompatibleStateImageBehavior = false;
@@ -124,7 +126,7 @@
 			// btnUpdateReport
 			// 
 			this.btnUpdateReport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnUpdateReport.Location = new System.Drawing.Point(605, 8);
+			this.btnUpdateReport.Location = new System.Drawing.Point(639, 8);
 			this.btnUpdateReport.Name = "btnUpdateReport";
 			this.btnUpdateReport.Size = new System.Drawing.Size(97, 23);
 			this.btnUpdateReport.TabIndex = 6;
@@ -195,11 +197,15 @@
 			this.lblTimeInReportPeriod.TabIndex = 10;
 			this.lblTimeInReportPeriod.Text = "0 m";
 			// 
-			// ProjectSummaryReport
+			// chDate
+			// 
+			this.chDate.Text = "Date";
+			// 
+			// DailySummaryReport
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(714, 391);
+			this.ClientSize = new System.Drawing.Size(748, 391);
 			this.Controls.Add(this.lblTimeInReportPeriod);
 			this.Controls.Add(this.lblTiRPLabel);
 			this.Controls.Add(this.lblTotalTimeLabel);
@@ -214,9 +220,9 @@
 			this.Controls.Add(this.clbProjects);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.MinimumSize = new System.Drawing.Size(585, 305);
-			this.Name = "ProjectSummaryReport";
+			this.Name = "DailySummaryReport";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-			this.Text = "Project Summary Report";
+			this.Text = "Daily Summary Report";
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -239,5 +245,6 @@
 		private System.Windows.Forms.Label lblTotalTimeLabel;
 		private System.Windows.Forms.Label lblTiRPLabel;
 		private System.Windows.Forms.Label lblTimeInReportPeriod;
+		private System.Windows.Forms.ColumnHeader chDate;
 	}
 }

@@ -92,7 +92,10 @@ namespace TimeKeeper
 
 		private void cbShowInactive_CheckedChanged(object sender, EventArgs e)
 		{
-			var projectID = (this.lvProjects.SelectedItems[0].Tag as Project)?.ProjectID ?? 0;
+			long projectID = 0;
+			if (this.lvProjects.SelectedItems.Count > 0) {
+				projectID = (this.lvProjects.SelectedItems[0].Tag as Project)?.ProjectID ?? 0;
+			}
 			this.LoadListBox(this.cbShowInactive.Checked, projectID);
 		}
 

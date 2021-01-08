@@ -1,4 +1,4 @@
-﻿namespace TimeKeeper
+﻿namespace TimeKeeper.Reports
 {
 	partial class TimeDetailReport
 	{
@@ -62,7 +62,6 @@
             this.chDescription});
 			this.lvReportData.FullRowSelect = true;
 			this.lvReportData.GridLines = true;
-			this.lvReportData.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
 			this.lvReportData.HideSelection = false;
 			this.lvReportData.Location = new System.Drawing.Point(0, 38);
 			this.lvReportData.Name = "lvReportData";
@@ -72,6 +71,7 @@
 			this.lvReportData.TabStop = false;
 			this.lvReportData.UseCompatibleStateImageBehavior = false;
 			this.lvReportData.View = System.Windows.Forms.View.Details;
+			this.lvReportData.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lvReportData_ColumnClick);
 			// 
 			// chEntryDate
 			// 
@@ -166,10 +166,10 @@
 			// 
 			// lblTotalTimeLabel
 			// 
-			this.lblTotalTimeLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.lblTotalTimeLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.lblTotalTimeLabel.AutoSize = true;
 			this.lblTotalTimeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblTotalTimeLabel.Location = new System.Drawing.Point(501, 374);
+			this.lblTotalTimeLabel.Location = new System.Drawing.Point(217, 374);
 			this.lblTotalTimeLabel.Name = "lblTotalTimeLabel";
 			this.lblTotalTimeLabel.Size = new System.Drawing.Size(40, 13);
 			this.lblTotalTimeLabel.TabIndex = 9;
@@ -178,9 +178,9 @@
 			// 
 			// lblTotalTime
 			// 
-			this.lblTotalTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.lblTotalTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.lblTotalTime.AutoSize = true;
-			this.lblTotalTime.Location = new System.Drawing.Point(544, 374);
+			this.lblTotalTime.Location = new System.Drawing.Point(260, 374);
 			this.lblTotalTime.Name = "lblTotalTime";
 			this.lblTotalTime.Size = new System.Drawing.Size(13, 13);
 			this.lblTotalTime.TabIndex = 10;
@@ -188,8 +188,9 @@
 			// 
 			// lblTimeInReportPeriod
 			// 
+			this.lblTimeInReportPeriod.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.lblTimeInReportPeriod.AutoSize = true;
-			this.lblTimeInReportPeriod.Location = new System.Drawing.Point(407, 374);
+			this.lblTimeInReportPeriod.Location = new System.Drawing.Point(152, 374);
 			this.lblTimeInReportPeriod.Name = "lblTimeInReportPeriod";
 			this.lblTimeInReportPeriod.Size = new System.Drawing.Size(24, 13);
 			this.lblTimeInReportPeriod.TabIndex = 12;
@@ -197,9 +198,10 @@
 			// 
 			// lblTiRPLabel
 			// 
+			this.lblTiRPLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.lblTiRPLabel.AutoSize = true;
 			this.lblTiRPLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.lblTiRPLabel.Location = new System.Drawing.Point(267, 374);
+			this.lblTiRPLabel.Location = new System.Drawing.Point(12, 374);
 			this.lblTiRPLabel.Name = "lblTiRPLabel";
 			this.lblTiRPLabel.Size = new System.Drawing.Size(134, 13);
 			this.lblTiRPLabel.TabIndex = 11;
@@ -214,7 +216,6 @@
 			this.Controls.Add(this.lblTiRPLabel);
 			this.Controls.Add(this.lblTotalTimeLabel);
 			this.Controls.Add(this.lblTotalTime);
-			this.Controls.Add(this.clbProjects);
 			this.Controls.Add(this.btnProjects);
 			this.Controls.Add(this.btnUpdateReport);
 			this.Controls.Add(this.dtpEndDate);
@@ -222,6 +223,7 @@
 			this.Controls.Add(this.lvReportData);
 			this.Controls.Add(this.lblEndDate);
 			this.Controls.Add(this.lblStartDate);
+			this.Controls.Add(this.clbProjects);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.MinimumSize = new System.Drawing.Size(585, 435);
 			this.Name = "TimeDetailReport";

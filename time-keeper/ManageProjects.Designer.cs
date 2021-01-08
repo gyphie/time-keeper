@@ -73,7 +73,7 @@
 			// 
 			// btnAddProject
 			// 
-			this.btnAddProject.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.btnAddProject.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.btnAddProject.Location = new System.Drawing.Point(19, 265);
 			this.btnAddProject.Name = "btnAddProject";
 			this.btnAddProject.Size = new System.Drawing.Size(75, 23);

@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="ListItem.cs" />
     <Compile Include="Project.cs" />
+    <Compile Include="DailySummary.cs" />
     <Compile Include="ProjectSummary.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Shared.cs" />

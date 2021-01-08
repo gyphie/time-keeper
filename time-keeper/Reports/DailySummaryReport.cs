@@ -7,9 +7,9 @@ using System.Windows.Forms;
 
 namespace TimeKeeper.Reports
 {
-	public partial class ProjectSummaryReport : Form
+	public partial class DailySummaryReport : Form
 	{
-		public ProjectSummaryReport()
+		public DailySummaryReport()
 		{
 			InitializeComponent();
 			this.clbProjects.Tag = this.btnProjects;
@@ -69,7 +69,7 @@ namespace TimeKeeper.Reports
 
 			try
 			{
-				var data = TimeKeeperData.GetProjectSummary(this.dtpStartDate.Value, this.dtpEndDate.Value.Date.AddDays(1)).Where(a => selectedProjects.Contains(a.ProjectID));
+				var data = TimeKeeperData.GetDailySummary(this.dtpStartDate.Value, this.dtpEndDate.Value.Date.AddDays(1)).Where(a => selectedProjects.Contains(a.ProjectID));
 
 				this.SuspendLayout();
 				this.lvReportData.BeginUpdate();
@@ -82,6 +82,7 @@ namespace TimeKeeper.Reports
 				{
 					totalTime += row.TotalMinutes;
 					this.lvReportData.Items.Add(new ListViewItem(new ListViewItem.ListViewSubItem[] {
+						new ListViewItem.ListViewSubItem() { Text = row.DateFormatted, Tag = row.DateSortable },
 						new ListViewItem.ListViewSubItem() { Text = row.ProjectNameFormatted, Tag = null },
 						new ListViewItem.ListViewSubItem() { Text = row.Department, Tag = null },
 						new ListViewItem.ListViewSubItem() { Text = Strings.ReformatLongTime(row.TotalMinutes), Tag = row.TotalMinutesSortable }

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace TimeKeeper
+namespace TimeKeeper.Reports
 {
 	public partial class TimeDetailReport : Form
 	{
@@ -24,12 +24,16 @@ namespace TimeKeeper
 			this.dtpStartDate.Value = beginDate;
 			this.dtpEndDate.Value = endDate;
 
-			var projects = TimeKeeperData.GetActiveProjects().ToArray();
+			this.lvReportData.ListViewItemSorter = new ListViewColumnSorter(0);
+			this.lvReportData.Items.Clear();
+
+			var projects = TimeKeeperData.GetActiveProjects();
+			projects.Sort();
 
 			this.clbProjects.Visible = false;
 
 			this.clbProjects.Items.Clear();
-			this.clbProjects.Items.AddRange(new ListBox.ObjectCollection(this.clbProjects, projects));
+			this.clbProjects.Items.AddRange(new ListBox.ObjectCollection(this.clbProjects, projects.ToArray()));
 			this.clbProjects.Items.Insert(0, new Project { ProjectID = 0, Name = "All Projects" });
 
 			this.clbProjects.SetItemChecked(0, true);   // Check all the items (the event will fire and check all the other items)
@@ -70,21 +74,30 @@ namespace TimeKeeper
 				this.SuspendLayout();
 				this.lvReportData.BeginUpdate();
 				this.lvReportData.Items.Clear();
+				this.lvReportData.ListViewItemSorter = new ListViewColumnSorter(0);
 
 				long totalTime = 0;
 
 				foreach (var row in data)
 				{
 					totalTime += row.Minutes;
-					this.lvReportData.Items.Add(new ListViewItem(new string[] { row.EntryDateFormatted, row.ProjectNameFormatted, row.Department, Strings.ReformatLongTime(row.Minutes), row.Description }));
+					this.lvReportData.Items.Add(new ListViewItem(new ListViewItem.ListViewSubItem[] {
+						new ListViewItem.ListViewSubItem() { Text = row.EntryDateFormatted, Tag = row.EntryDateSortable },
+						new ListViewItem.ListViewSubItem() { Text = row.ProjectNameFormatted, Tag = null },
+						new ListViewItem.ListViewSubItem() { Text = row.Department, Tag = null },
+						new ListViewItem.ListViewSubItem() { Text = Strings.ReformatLongTime(row.Minutes), Tag = row.MinutesSortable },
+						new ListViewItem.ListViewSubItem() { Text = row.Description, Tag = null },
+					}, -1));
 				}
+
+				this.lvReportData.Sort();
 
 				this.lblTotalTime.Text = Strings.ReformatLongTime(totalTime);
 				this.lblTimeInReportPeriod.Text = Strings.ReformatLongTime(DateTimes.GetWorkingDayCount(this.dtpStartDate.Value.Date, this.dtpEndDate.Value.Date) * 8 * 60);
 			}
 			catch (Exception ex)
 			{
-				MessageBox.Show("Report Error", "There was an error retrieving the report data:\n\n" + ex.Message);
+				MessageBox.Show("There was an error retrieving the report data:\n\n" + ex.Message, "Report Error");
 				return;
 			}
 			finally
@@ -216,6 +229,23 @@ namespace TimeKeeper
 			{
 				this.dtpStartDate.Value = this.dtpEndDate.Value;
 			}
+		}
+
+		private void lvReportData_ColumnClick(object sender, ColumnClickEventArgs e)
+		{
+			var listView = sender as ListView;
+			var columnSorter = listView.ListViewItemSorter as ListViewColumnSorter;
+			if (e.Column == columnSorter.ColumnIndex)
+			{
+				columnSorter.SortOrder = columnSorter.SortOrder == SortOrder.Ascending ? SortOrder.Descending : SortOrder.Ascending;
+			}
+			else
+			{
+				columnSorter.ColumnIndex = e.Column;
+				columnSorter.SortOrder = SortOrder.Ascending;
+			}
+
+			listView.Sort();
 		}
 	}
 }

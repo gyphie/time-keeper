@@ -49,11 +49,12 @@
 			this.msMain = new System.Windows.Forms.MenuStrip();
 			this.timeKeeperToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.projectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.exitToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
 			this.reportsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.detailReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.summaryReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.exitToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+			this.dailySummaryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.resetTimeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.pauseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -107,6 +108,7 @@
 			this.deleteBtn5 = new System.Windows.Forms.Label();
 			this.deleteBtn6 = new System.Windows.Forms.Label();
 			this.deleteBtn7 = new System.Windows.Forms.Label();
+			this.removeUnusedRowsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.cmsNotifyIcon.SuspendLayout();
 			this.msMain.SuspendLayout();
 			this.SuspendLayout();
@@ -248,6 +250,7 @@
 			// 
 			this.msMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.timeKeeperToolStripMenuItem,
+            this.reportsToolStripMenuItem,
             this.toolsToolStripMenuItem,
             this.settingsToolStripMenuItem});
 			this.msMain.Location = new System.Drawing.Point(0, 0);
@@ -260,7 +263,6 @@
 			// 
 			this.timeKeeperToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.projectToolStripMenuItem,
-            this.reportsToolStripMenuItem,
             this.aboutToolStripMenuItem,
             this.exitToolStripMenuItem1});
 			this.timeKeeperToolStripMenuItem.Name = "timeKeeperToolStripMenuItem";
@@ -274,13 +276,28 @@
 			this.projectToolStripMenuItem.Text = "&Projects...";
 			this.projectToolStripMenuItem.Click += new System.EventHandler(this.newProjectToolStripMenuItem_Click);
 			// 
+			// aboutToolStripMenuItem
+			// 
+			this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+			this.aboutToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
+			this.aboutToolStripMenuItem.Text = "&About...";
+			this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+			// 
+			// exitToolStripMenuItem1
+			// 
+			this.exitToolStripMenuItem1.Name = "exitToolStripMenuItem1";
+			this.exitToolStripMenuItem1.Size = new System.Drawing.Size(125, 22);
+			this.exitToolStripMenuItem1.Text = "E&xit";
+			this.exitToolStripMenuItem1.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+			// 
 			// reportsToolStripMenuItem
 			// 
 			this.reportsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.detailReportToolStripMenuItem,
-            this.summaryReportToolStripMenuItem});
+            this.summaryReportToolStripMenuItem,
+            this.dailySummaryToolStripMenuItem});
 			this.reportsToolStripMenuItem.Name = "reportsToolStripMenuItem";
-			this.reportsToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
+			this.reportsToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
 			this.reportsToolStripMenuItem.Text = "Reports";
 			// 
 			// detailReportToolStripMenuItem
@@ -297,19 +314,12 @@
 			this.summaryReportToolStripMenuItem.Text = "Project Summary...";
 			this.summaryReportToolStripMenuItem.Click += new System.EventHandler(this.summaryReportToolStripMenuItem_Click);
 			// 
-			// aboutToolStripMenuItem
+			// dailySummaryToolStripMenuItem
 			// 
-			this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-			this.aboutToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
-			this.aboutToolStripMenuItem.Text = "&About...";
-			this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
-			// 
-			// exitToolStripMenuItem1
-			// 
-			this.exitToolStripMenuItem1.Name = "exitToolStripMenuItem1";
-			this.exitToolStripMenuItem1.Size = new System.Drawing.Size(125, 22);
-			this.exitToolStripMenuItem1.Text = "E&xit";
-			this.exitToolStripMenuItem1.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+			this.dailySummaryToolStripMenuItem.Name = "dailySummaryToolStripMenuItem";
+			this.dailySummaryToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+			this.dailySummaryToolStripMenuItem.Text = "Daily Summary...";
+			this.dailySummaryToolStripMenuItem.Click += new System.EventHandler(this.dailySummaryToolStripMenuItem_Click);
 			// 
 			// toolsToolStripMenuItem
 			// 
@@ -396,7 +406,8 @@
             this.prompToolStripMenuItem,
             this.windowTransparencyToolStripMenuItem,
             this.buttonColorToolStripMenuItem,
-            this.nameToolStripMenuItem});
+            this.nameToolStripMenuItem,
+            this.removeUnusedRowsToolStripMenuItem});
 			this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
 			this.settingsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
 			this.settingsToolStripMenuItem.Text = "&Settings";
@@ -410,7 +421,7 @@
             this.prompt30ToolStripMenuItem,
             this.prompt60ToolStripMenuItem});
 			this.prompToolStripMenuItem.Name = "prompToolStripMenuItem";
-			this.prompToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
+			this.prompToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
 			this.prompToolStripMenuItem.Text = "&Prompt Every";
 			// 
 			// prompt5ToolStripMenuItem
@@ -456,7 +467,7 @@
             this.trans50StripMenuItem,
             this.trans75StripMenuItem});
 			this.windowTransparencyToolStripMenuItem.Name = "windowTransparencyToolStripMenuItem";
-			this.windowTransparencyToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
+			this.windowTransparencyToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
 			this.windowTransparencyToolStripMenuItem.Text = "&Window Transparency";
 			// 
 			// trans0StripMenuItem
@@ -490,15 +501,15 @@
 			// buttonColorToolStripMenuItem
 			// 
 			this.buttonColorToolStripMenuItem.Name = "buttonColorToolStripMenuItem";
-			this.buttonColorToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
+			this.buttonColorToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
 			this.buttonColorToolStripMenuItem.Text = "&Button Color...";
 			this.buttonColorToolStripMenuItem.Click += new System.EventHandler(this.btnColor_Click);
 			// 
 			// nameToolStripMenuItem
 			// 
 			this.nameToolStripMenuItem.Name = "nameToolStripMenuItem";
-			this.nameToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
-			this.nameToolStripMenuItem.Text = "Name...";
+			this.nameToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+			this.nameToolStripMenuItem.Text = "&Name...";
 			this.nameToolStripMenuItem.Click += new System.EventHandler(this.nameToolStripMenuItem_Click);
 			// 
 			// llDiscardTime
@@ -821,6 +832,15 @@
 			this.deleteBtn7.Text = "❌";
 			this.deleteBtn7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
+			// removeUnusedRowsToolStripMenuItem
+			// 
+			this.removeUnusedRowsToolStripMenuItem.CheckOnClick = true;
+			this.removeUnusedRowsToolStripMenuItem.Name = "removeUnusedRowsToolStripMenuItem";
+			this.removeUnusedRowsToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+			this.removeUnusedRowsToolStripMenuItem.Text = "&Remove Unused Rows";
+			this.removeUnusedRowsToolStripMenuItem.Visible = false;
+			this.removeUnusedRowsToolStripMenuItem.Click += new System.EventHandler(this.removeUnusedRowsToolStripMenuItem_Click);
+			// 
 			// frmTimeKeeper
 			// 
 			this.AcceptButton = this.btnSave;
@@ -933,7 +953,6 @@
 		private System.Windows.Forms.ToolStripMenuItem clearToolStripMenuItem;
 		private System.Windows.Forms.LinkLabel llDiscardTime;
 		private System.Windows.Forms.ToolStripMenuItem buttonColorToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem reportsToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem detailReportToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem summaryReportToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem nameToolStripMenuItem;
@@ -966,6 +985,9 @@
 		private System.Windows.Forms.Label deleteBtn5;
 		private System.Windows.Forms.Label deleteBtn6;
 		private System.Windows.Forms.Label deleteBtn7;
+		private System.Windows.Forms.ToolStripMenuItem dailySummaryToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem reportsToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem removeUnusedRowsToolStripMenuItem;
 	}
 }
 

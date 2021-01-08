@@ -8,9 +8,13 @@ using System.Text;
 
 namespace Common
 {
-	public class ProjectSummary
+	public class DailySummary
 	{
-		public ProjectSummary() { }
+		public DailySummary() { }
+
+		public DateTime Date { get; set; }
+		public string DateFormatted => this.Date.FormatReportDate();
+		public string DateSortable => this.Date.FormatSortableDateTime();
 		public long ProjectID { get; set; }
 		public string ProjectName { get; set; }
 		public string ProjectNameFormatted => $"{this.ProjectName} ({this.ProjectID})";

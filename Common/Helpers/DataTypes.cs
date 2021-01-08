@@ -19,6 +19,17 @@ namespace Common.Helpers.DataTypes
 		}
 	}
 
+	public static class Longs
+	{
+		/// <summary>
+		/// Formts long to a string with leading zeros up to 6 characters long
+		/// </summary>
+		public static string FormatSortable(this long value)
+		{
+			return value.ToString("000000");
+		}
+	}
+
 	public static class DateTimes
 	{
 		/// Credit: https://stackoverflow.com/a/1646396/5583585
@@ -33,6 +44,25 @@ namespace Common.Helpers.DataTypes
 
 			return (long)calcBusinessDays;
 		}
+
+		public static readonly string REPORT_DATE_FORMAT_STRING = "MMM d";
+		public static readonly string REPORT_DATETIME_FORMAT_STRING = "MMM d h:mm";
+		public static readonly string SORTABLE_DATE_FORMAT_STRING = "yyyyMMddHHmmssffff";
+
+		public static string FormatReportDate(this DateTime dt)
+		{
+			return dt.ToString(REPORT_DATE_FORMAT_STRING);
+		}
+		public static string FormatReportDateTime(this DateTime dt)
+		{
+			return dt.ToString(REPORT_DATETIME_FORMAT_STRING) + (dt.Hour <= 12 ? "a" : "p");
+		}
+
+		public static string FormatSortableDateTime(this DateTime dt)
+		{
+			return dt.ToString(SORTABLE_DATE_FORMAT_STRING);
+		}
+
 	}
 
 

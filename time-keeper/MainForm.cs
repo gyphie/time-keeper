@@ -26,8 +26,9 @@ namespace TimeKeeper
 		private DateTime timeSinceLastPrompt = DateTime.Now;
 		private DateTime delayUntil = DateTime.MinValue;
 
-		private TimeDetailReport detailReportForm = new TimeDetailReport();
-		private ProjectSummaryReport projectSummaryReportForm = new ProjectSummaryReport();
+		private Reports.TimeDetailReport detailReportForm = new Reports.TimeDetailReport();
+		private Reports.ProjectSummaryReport projectSummaryReportForm = new Reports.ProjectSummaryReport();
+		private Reports.DailySummaryReport dailySummaryReportForm = new Reports.DailySummaryReport();
 		private ManageProjects manageProjectsForm = new ManageProjects();
 		private Size originalFormSize;
 
@@ -107,6 +108,8 @@ namespace TimeKeeper
 				this.trans25StripMenuItem.Checked = opacity == TimeKeeper.WindowTransparency.TwentyFive;
 				this.trans50StripMenuItem.Checked = opacity == TimeKeeper.WindowTransparency.Fifty;
 				this.trans75StripMenuItem.Checked = opacity == TimeKeeper.WindowTransparency.SeventyFive;
+
+				this.removeUnusedRowsToolStripMenuItem.Checked = setting.RemoveUnusedRows;
 
 				this.StartPosition = FormStartPosition.Manual;
 				this.Location = Screen.PrimaryScreen.WorkingArea.Location;
@@ -533,6 +536,27 @@ namespace TimeKeeper
 							curRow.DescriptionBox.Text = checkRow.DescriptionBox.Text;
 							Row.UpdateDeleteButtonVisibility(curRow);
 
+							if (checkRow.ProjectBox.Focused)
+							{
+								curRow.ProjectBox.Focus();
+								curRow.ProjectBox.SelectionStart = curRow.ProjectBox.Text.Length;
+								curRow.ProjectBox.SelectionLength = 0;
+							}
+							else if (checkRow.TimeBox.Focused)
+							{
+								curRow.TimeBox.Focus();
+								curRow.TimeBox.SelectionStart = curRow.TimeBox.Text.Length;
+								curRow.TimeBox.SelectionLength = 0;
+
+							}
+							else if (checkRow.DescriptionBox.Focused)
+							{
+								curRow.DescriptionBox.Focus();
+								curRow.DescriptionBox.Focus();
+								curRow.DescriptionBox.SelectionStart = curRow.DescriptionBox.Text.Length;
+								curRow.DescriptionBox.SelectionLength = 0;
+							}
+
 							checkRow.Clear(true, true, true);
 
 							break;
@@ -541,6 +565,7 @@ namespace TimeKeeper
 				}
 			}
 		}
+
 
 		void TimeBox_TextChanged(object sender, EventArgs e)
 		{
@@ -626,6 +651,8 @@ namespace TimeKeeper
 					{
 						errorMessages.Add(row.ProjectBox.Text + "\t" + minutes.ToString() + "\t" + row.DescriptionBox.Text + "\tProject not found");
 					}
+					// TODO -- if a project is selected and there is no time then remove the row (based on the setting)
+					// TODO -- once implemented show the Settings Menu Item
 				}
 			}
 
@@ -749,6 +776,10 @@ namespace TimeKeeper
 		{
 			this.projectSummaryReportForm.ShowReport(this);
 		}
+		private void dailySummaryToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			this.dailySummaryReportForm.ShowReport(this);
+		}
 
 		private void detailReportToolStripMenuItem_Click(object sender, EventArgs e)
 		{
@@ -795,6 +826,13 @@ namespace TimeKeeper
 		private void GridControl_Enter(object sender, EventArgs e)
 		{
 			this.Controls.SetChildIndex(sender as Control, 0);
+		}
+
+		private void removeUnusedRowsToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			var menuItem = sender as ToolStripMenuItem;
+			Settings.Default.RemoveUnusedRows = menuItem.Checked;
+			Settings.Default.Save();
 		}
 	}
 }
